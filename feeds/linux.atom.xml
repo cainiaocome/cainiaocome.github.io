@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>jlz's blog - Linux</title><link href="/" rel="alternate"></link><link href="/feeds/linux.atom.xml" rel="self"></link><id>/</id><updated>2020-11-20T11:52:53+08:00</updated><entry><title>How to detect disk is mounted or not in bash</title><link href="/how-to-detect-disk-is-mounted-or-not-in-bash.html" rel="alternate"></link><published>2020-11-20T11:52:53+08:00</published><updated>2020-11-20T11:52:53+08:00</updated><author><name>jlz</name></author><id>tag:None,2020-11-20:/how-to-detect-disk-is-mounted-or-not-in-bash.html</id><summary type="html">&lt;p&gt;I mounted two disks on my raspberrypi via USB3.0 port. But the port, hub, or the wire might broke so the mounting action might fail. If it fails, the backup script might fail so I want to check the disk is mounted successfully before backup my raspberrypi.&lt;/p&gt;
+&lt;p&gt;Show you …&lt;/p&gt;</summary><content type="html">&lt;p&gt;I mounted two disks on my raspberrypi via USB3.0 port. But the port, hub, or the wire might broke so the mounting action might fail. If it fails, the backup script might fail so I want to check the disk is mounted successfully before backup my raspberrypi.&lt;/p&gt;
+&lt;p&gt;Show you the code:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;    uuid=&amp;quot;836a6e36-4b6c-437a-aa52-e1fba22093d1&amp;quot;&lt;/span&gt;
+&lt;span class="err"&gt;    mountpoint=$(lsblk -o UUID,MOUNTPOINT | awk -v u=&amp;quot;$uuid&amp;quot; &amp;#39;$1 == u {print $2}&amp;#39;)&lt;/span&gt;
+&lt;span class="err"&gt;    if [[ -n $mountpoint ]]&lt;/span&gt;
+&lt;span class="err"&gt;    then&lt;/span&gt;
+&lt;span class="err"&gt;        echo &amp;quot;backup disk mounted, backup now...&amp;quot;&lt;/span&gt;
+&lt;span class="err"&gt;        rsync -avr /root/ /disk2/rasp_backup/&lt;/span&gt;
+&lt;span class="err"&gt;    else&lt;/span&gt;
+&lt;span class="err"&gt;        echo &amp;quot;backup disk not mounted, exit now...&amp;quot;&lt;/span&gt;
+&lt;span class="err"&gt;    fi&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content><category term="Linux"></category></entry><entry><title>How to detect whether it is interactive or not in bash script</title><link href="/how-to-detect-whether-it-is-interactive-or-not-in-bash-script.html" rel="alternate"></link><published>2020-11-20T10:54:47+08:00</published><updated>2020-11-20T10:54:47+08:00</updated><author><name>jlz</name></author><id>tag:None,2020-11-20:/how-to-detect-whether-it-is-interactive-or-not-in-bash-script.html</id><summary type="html">&lt;p&gt;Some times we may want to check our bash script is running interactively or non-interactively. Here is a code snippet to do the trick.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;if [ ! -t 0 ]; then&lt;/span&gt;
+&lt;span class="err"&gt;    echo &amp;quot;I am running non-interactively&amp;quot;&lt;/span&gt;
+&lt;span class="err"&gt;else&lt;/span&gt;
+&lt;span class="err"&gt;    echo &amp;quot;I am running interactively&amp;quot;&lt;/span&gt;
+&lt;span class="err"&gt;fi&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;The -t flag in man page:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;-t fd True if …&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</summary><content type="html">&lt;p&gt;Some times we may want to check our bash script is running interactively or non-interactively. Here is a code snippet to do the trick.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;if [ ! -t 0 ]; then&lt;/span&gt;
+&lt;span class="err"&gt;    echo &amp;quot;I am running non-interactively&amp;quot;&lt;/span&gt;
+&lt;span class="err"&gt;else&lt;/span&gt;
+&lt;span class="err"&gt;    echo &amp;quot;I am running interactively&amp;quot;&lt;/span&gt;
+&lt;span class="err"&gt;fi&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;The -t flag in man page:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;-t fd True if file descriptor fd is open and refers to a terminal&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content><category term="Linux"></category></entry></feed>

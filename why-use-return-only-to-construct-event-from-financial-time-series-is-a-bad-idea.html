@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <meta name="generator" content="Pelican" />
+        <title>Why use return only to construct event from financial time series is a bad idea</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+        <link href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="jlz's blog Atom Feed" />
+        <meta name="description" content="It is a bad idea to construct events from financial time series by return. The following is an example: # au i = 30 delta = tmpdf.close.shift(-i)..." />
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">jlz's blog</a></h1>
+                <nav><ul>
+                    <li><a href="/category/cv.html">CV</a></li>
+                    <li class="active"><a href="/category/financial.html">financial</a></li>
+                    <li><a href="/category/linux.html">Linux</a></li>
+                    <li><a href="/category/pelican.html">pelican</a></li>
+                    <li><a href="/category/ubuntu.html">Ubuntu</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="/why-use-return-only-to-construct-event-from-financial-time-series-is-a-bad-idea.html" rel="bookmark"
+           title="Permalink to Why use return only to construct event from financial time series is a bad idea">Why use return only to construct event from financial time series is a bad idea</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2020-04-24T18:24:47+08:00">
+                Published: Fri 24 April 2020
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/jlz.html">jlz</a>
+        </address>
+<p>In <a href="/category/financial.html">financial</a>.</p>
+
+</footer><!-- /.post-info -->      <p>It is a bad idea to construct events from financial time series by return. The following is an example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">#</span> <span class="n">au</span>
+
+<span class="n">i</span> <span class="o">=</span> <span class="mi">30</span>
+<span class="n">delta</span> <span class="o">=</span> <span class="n">tmpdf</span><span class="p">.</span><span class="k">close</span><span class="p">.</span><span class="n">shift</span><span class="p">(</span><span class="o">-</span><span class="n">i</span><span class="p">)</span> <span class="o">-</span> <span class="n">tmpdf</span><span class="p">.</span><span class="k">close</span>
+<span class="n">delta</span> <span class="o">=</span> <span class="n">delta</span><span class="p">[</span><span class="n">market_open_and_close_time_range</span><span class="p">.</span><span class="n">not_include_these</span><span class="p">(</span><span class="n">delta</span><span class="p">.</span><span class="k">index</span><span class="p">)]</span>
+<span class="n">delta</span> <span class="o">=</span> <span class="n">delta</span><span class="p">[</span><span class="n">np</span><span class="p">.</span><span class="k">abs</span><span class="p">(</span><span class="n">delta</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">.</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">ts</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">Series</span><span class="p">(</span><span class="n">list</span><span class="p">(</span><span class="n">delta</span><span class="p">.</span><span class="k">index</span><span class="p">))</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">group_ts_by_gap</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">pd</span><span class="p">.</span><span class="n">to_timedelta</span><span class="p">(</span><span class="s1">&#39;10 seconds&#39;</span><span class="p">))</span>
+<span class="n">x</span><span class="p">.</span><span class="k">index</span> <span class="o">=</span> <span class="n">delta</span><span class="p">.</span><span class="k">index</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="k">g</span> <span class="k">in</span> <span class="n">delta</span><span class="p">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="n">print</span><span class="p">(</span><span class="k">g</span><span class="p">)</span>
+
+<span class="n">_df</span> <span class="o">=</span> <span class="n">get_df_near_timestamp</span><span class="p">(</span><span class="n">tmpdf</span><span class="p">,</span> <span class="n">pd</span><span class="p">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="s1">&#39;2020-03-09 10:57:17&#39;</span><span class="p">))</span>
+<span class="n">price_volume_plot</span><span class="p">(</span><span class="n">_df</span><span class="p">)</span>
+<span class="n">html_df</span><span class="p">(</span><span class="n">_df</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Sometimes, it is just ONE order that drive up or down price, it is impossible to predict such events(at least by my current knowledge). So constructing such events makes no sense since no model could predict these events.</p>
+<p>It may be better to construct events from trending scan results. Filter out those trend with long enough time(like more than 30 seconds), and construct events at the beginning period.</p>
+<p>Hope I can build a model successfully someday. I don't have much time to waste now.</p>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>links</h2>
+                        <ul>
+                            <li><a href="https://getpelican.com/">Pelican</a></li>
+                            <li><a href="https://www.python.org/">Python.org</a></li>
+                            <li><a href="https://palletsprojects.com/p/jinja/">Jinja2</a></li>
+                            <li><a href="#">You can modify those links in your config file</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+                            <li><a href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
+
+                            <li><a href="#">You can add links in your config file</a></li>
+                            <li><a href="#">Another social link</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="https://getpelican.com/">Pelican</a>, which takes great advantage of <a href="https://www.python.org/">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>

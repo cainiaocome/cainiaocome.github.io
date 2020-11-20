@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <meta name="generator" content="Pelican" />
+        <title>jlz's blog</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+        <link href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="jlz's blog Atom Feed" />
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">jlz's blog</a></h1>
+                <nav><ul>
+                    <li><a href="/category/cv.html">CV</a></li>
+                    <li><a href="/category/financial.html">financial</a></li>
+                    <li><a href="/category/linux.html">Linux</a></li>
+                    <li><a href="/category/pelican.html">pelican</a></li>
+                    <li><a href="/category/ubuntu.html">Ubuntu</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+
+            <aside id="featured" class="body">
+                <article>
+                    <h1 class="entry-title"><a href="/how-to-detect-disk-is-mounted-or-not-in-bash.html">How to detect disk is mounted or not in bash</a></h1>
+<footer class="post-info">
+        <abbr class="published" title="2020-11-20T11:52:53+08:00">
+                Published: Fri 20 November 2020
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/jlz.html">jlz</a>
+        </address>
+<p>In <a href="/category/linux.html">Linux</a>.</p>
+
+</footer><!-- /.post-info --><p>I mounted two disks on my raspberrypi via USB3.0 port. But the port, hub, or the wire might broke so the mounting action might fail. If it fails, the backup script might fail so I want to check the disk is mounted successfully before backup my raspberrypi.</p>
+<p>Show you the code:</p>
+<div class="highlight"><pre><span></span><code><span class="err">    uuid=&quot;836a6e36-4b6c-437a-aa52-e1fba22093d1&quot;</span>
+<span class="err">    mountpoint=$(lsblk -o UUID,MOUNTPOINT | awk -v u=&quot;$uuid&quot; &#39;$1 == u {print $2}&#39;)</span>
+<span class="err">    if [[ -n $mountpoint ]]</span>
+<span class="err">    then</span>
+<span class="err">        echo &quot;backup disk mounted, backup now...&quot;</span>
+<span class="err">        rsync -avr /root/ /disk2/rasp_backup/</span>
+<span class="err">    else</span>
+<span class="err">        echo &quot;backup disk not mounted, exit now...&quot;</span>
+<span class="err">    fi</span>
+</code></pre></div>                </article>
+            </aside><!-- /#featured -->
+                <section id="content" class="body">
+                    <h1>Other articles</h1>
+                    <hr />
+                    <ol id="posts-list" class="hfeed">
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/how-to-detect-whether-it-is-interactive-or-not-in-bash-script.html" rel="bookmark"
+                           title="Permalink to How to detect whether it is interactive or not in bash script">How to detect whether it is interactive or not in bash script</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2020-11-20T10:54:47+08:00">
+                Published: Fri 20 November 2020
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/jlz.html">jlz</a>
+        </address>
+<p>In <a href="/category/linux.html">Linux</a>.</p>
+
+</footer><!-- /.post-info -->                <p>Some times we may want to check our bash script is running interactively or non-interactively. Here is a code snippet to do the trick.</p>
+<div class="highlight"><pre><span></span><code><span class="err">if [ ! -t 0 ]; then</span>
+<span class="err">    echo &quot;I am running non-interactively&quot;</span>
+<span class="err">else</span>
+<span class="err">    echo &quot;I am running interactively&quot;</span>
+<span class="err">fi</span>
+</code></pre></div>
+
+<p>The -t flag in man page:</p>
+<div class="highlight"><pre><span></span><code><span class="err">-t fd True if …</span></code></pre></div>
+                <a class="readmore" href="/how-to-detect-whether-it-is-interactive-or-not-in-bash-script.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/ubuntu-2004-bluetooth-headphone-problems.html" rel="bookmark"
+                           title="Permalink to Ubuntu 20.04 Bluetooth headphone problems">Ubuntu 20.04 Bluetooth headphone problems</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2020-10-23T18:37:01+08:00">
+                Published: Fri 23 October 2020
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/jlz.html">jlz</a>
+        </address>
+<p>In <a href="/category/ubuntu.html">Ubuntu</a>.</p>
+
+</footer><!-- /.post-info -->                <p>From my experience, the wireless Bluetooth driver in Ubuntu is not written very well. I have met some severe problems with it. </p>
+<p>For example, one time I noticed one very strange problem: youtube videos do not play in Chrome, but you can drag the progress bar to anywhere, the image …</p>
+                <a class="readmore" href="/ubuntu-2004-bluetooth-headphone-problems.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/some-of-my-projects-tools-and-scripts.html" rel="bookmark"
+                           title="Permalink to Some of my projects, tools and scripts">Some of my projects, tools and scripts</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2020-10-08T00:00:00+08:00">
+                Published: Thu 08 October 2020
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/jlz.html">jlz</a>
+        </address>
+<p>In <a href="/category/cv.html">CV</a>.</p>
+
+</footer><!-- /.post-info -->                <h3>HTTP traffic index engine</h3>
+<ul>
+<li>design and implement an HTTP request hash algorithm to filter similar HTTP request(from penetration testing perspective)</li>
+<li>design and implement a web page structural clustering algorithm to filter similar web page(from penetration testing perspective)</li>
+<li>design and implement a crawler-based on these two algorithms to index …</li></ul>
+                <a class="readmore" href="/some-of-my-projects-tools-and-scripts.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/sshfs-transport-endpoint-is-not-connected.html" rel="bookmark"
+                           title="Permalink to sshfs Transport endpoint is not connected">sshfs Transport endpoint is not connected</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2020-04-25T12:26:54+08:00">
+                Published: Sat 25 April 2020
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/jlz.html">jlz</a>
+        </address>
+<p>In <a href="/category/ubuntu.html">Ubuntu</a>.</p>
+
+</footer><!-- /.post-info -->                <p>I have a notebook running Ubuntu 18.04 and a raspberry pi(4B with 4GB ram, which is a fantastic version of raspberry pi), both are on 7x24. Because capacity of the harddisk in the notebook is not large(only 64GB), I use sshfs to mount one hard disk(1TB …</p>
+                <a class="readmore" href="/sshfs-transport-endpoint-is-not-connected.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/why-use-return-only-to-construct-event-from-financial-time-series-is-a-bad-idea.html" rel="bookmark"
+                           title="Permalink to Why use return only to construct event from financial time series is a bad idea">Why use return only to construct event from financial time series is a bad idea</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2020-04-24T18:24:47+08:00">
+                Published: Fri 24 April 2020
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/jlz.html">jlz</a>
+        </address>
+<p>In <a href="/category/financial.html">financial</a>.</p>
+
+</footer><!-- /.post-info -->                <p>It is a bad idea to construct events from financial time series by return. The following is an example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">#</span> <span class="n">au</span>
+
+<span class="n">i</span> <span class="o">=</span> <span class="mi">30</span>
+<span class="n">delta</span> <span class="o">=</span> <span class="n">tmpdf</span><span class="p">.</span><span class="k">close</span><span class="p">.</span><span class="n">shift</span><span class="p">(</span><span class="o">-</span><span class="n">i</span><span class="p">)</span> <span class="o">-</span> <span class="n">tmpdf</span><span class="p">.</span><span class="k">close</span>
+<span class="n">delta</span> <span class="o">=</span> <span class="n">delta</span><span class="p">[</span><span class="n">market_open_and_close_time_range</span><span class="p">.</span><span class="n">not_include_these</span><span class="p">(</span><span class="n">delta</span><span class="p">.</span><span class="k">index</span><span class="p">)]</span>
+<span class="n">delta</span> <span class="o">=</span> <span class="n">delta</span><span class="p">[</span><span class="n">np</span><span class="p">.</span><span class="k">abs</span><span class="p">(</span><span class="n">delta</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">.</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">ts</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">Series</span><span class="p">(</span><span class="n">list</span><span class="p">(</span><span class="n">delta</span><span class="p">.</span><span class="k">index</span><span class="p">))</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">group_ts_by_gap …</span></code></pre></div>
+                <a class="readmore" href="/why-use-return-only-to-construct-event-from-financial-time-series-is-a-bad-idea.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/a-minor-ubuntu-1804-bluetooth-problem.html" rel="bookmark"
+                           title="Permalink to A minor Ubuntu 18.04 bluetooth problem">A minor Ubuntu 18.04 bluetooth problem</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2020-04-16T13:46:36+08:00">
+                Published: Thu 16 April 2020
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/jlz.html">jlz</a>
+        </address>
+<p>In <a href="/category/ubuntu.html">Ubuntu</a>.</p>
+
+</footer><!-- /.post-info -->                <p>Several days ago, my 2.4G mouse is broken because the usb receiver can not work properly, so I bought another bluetooth/2.4G mouse on taobao, which costs me only 30 yuan(5 dollars).But there is a small problem with the bluetooth connection.Sometimes the connection just dies …</p>
+                <a class="readmore" href="/a-minor-ubuntu-1804-bluetooth-problem.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/blog-on-github-with-pelican.html" rel="bookmark"
+                           title="Permalink to Blog on Github with pelican">Blog on Github with pelican</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2020-04-11T21:17:54+08:00">
+                Published: Sat 11 April 2020
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/jlz.html">jlz</a>
+        </address>
+<p>In <a href="/category/pelican.html">pelican</a>.</p>
+
+</footer><!-- /.post-info -->                <p>It has been a long time since i wrote blogs. I think it is time to write some thoughts down and practice my English.</p>
+<p>It's very easy to blog on Github with pelican.</p>
+<ol>
+<li>create a repository on github like this: cainiaocome.github.io, replace cainiaocome with your username</li>
+<li>pip install …</li></ol>
+                <a class="readmore" href="/blog-on-github-with-pelican.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+                </ol><!-- /#posts-list -->
+                </section><!-- /#content -->
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>links</h2>
+                        <ul>
+                            <li><a href="https://getpelican.com/">Pelican</a></li>
+                            <li><a href="https://www.python.org/">Python.org</a></li>
+                            <li><a href="https://palletsprojects.com/p/jinja/">Jinja2</a></li>
+                            <li><a href="#">You can modify those links in your config file</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+                            <li><a href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
+
+                            <li><a href="#">You can add links in your config file</a></li>
+                            <li><a href="#">Another social link</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="https://getpelican.com/">Pelican</a>, which takes great advantage of <a href="https://www.python.org/">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>
