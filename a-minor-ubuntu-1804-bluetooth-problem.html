@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <meta name="generator" content="Pelican" />
+        <title>A minor Ubuntu 18.04 bluetooth problem</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+        <link href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="jlz's blog Atom Feed" />
+        <meta name="description" content="Several days ago, my 2.4G mouse is broken because the usb receiver can not work properly, so I bought another bluetooth/2.4G mouse on taobao,..." />
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">jlz's blog</a></h1>
+                <nav><ul>
+                    <li><a href="/category/ansible.html">ansible</a></li>
+                    <li><a href="/category/cv.html">CV</a></li>
+                    <li><a href="/category/financial.html">financial</a></li>
+                    <li><a href="/category/linux.html">Linux</a></li>
+                    <li><a href="/category/pelican.html">pelican</a></li>
+                    <li><a href="/category/proxmox.html">proxmox</a></li>
+                    <li><a href="/category/sql.html">SQL</a></li>
+                    <li class="active"><a href="/category/ubuntu.html">ubuntu</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="/a-minor-ubuntu-1804-bluetooth-problem.html" rel="bookmark"
+           title="Permalink to A minor Ubuntu 18.04 bluetooth problem">A minor Ubuntu 18.04 bluetooth problem</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2020-04-16T13:46:36+08:00">
+                Published: 四 16 四月 2020
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/jlz.html">jlz</a>
+        </address>
+<p>In <a href="/category/ubuntu.html">Ubuntu</a>.</p>
+
+</footer><!-- /.post-info -->      <p>Several days ago, my 2.4G mouse is broken because the usb receiver can not work properly, so I bought another bluetooth/2.4G mouse on taobao, which costs me only 30 yuan(5 dollars).But there is a small problem with the bluetooth connection.Sometimes the connection just dies and I can not reconnect it. I googled a lot and tried several ways, including</p>
+<div class="highlight"><pre><span></span><code>service bluetooth restart
+systemctl restart bluetooth
+rfkill block bluetooth
+rfkill unblock bluetooth
+bluetoothctl
+</code></pre></div>
+
+<p>But none of the above worked.</p>
+<p>Finally, I found <a href="https://bugs.launchpad.net/ubuntu/+source/linux/+bug/1799064">this page</a> and edited one line of my grub file from</p>
+<div class="highlight"><pre><span></span><code>GRUB_CMDLINE_LINUX_DEFAULT=&quot;quiet splash&quot;
+</code></pre></div>
+
+<p>to</p>
+<div class="highlight"><pre><span></span><code>GRUB_CMDLINE_LINUX_DEFAULT=&quot;quiet splash btusb.enable_autosuspend=0&quot;
+</code></pre></div>
+
+<p>then execute</p>
+<div class="highlight"><pre><span></span><code>update-grub &amp;&amp; reboot
+</code></pre></div>
+
+<p>Untill Now the mouse works fine.I hope this is "the solution".If anything goes wrong, I might update this info.</p>
+<p>Hope this information can help someone.</p>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>links</h2>
+                        <ul>
+                            <li><a href="https://getpelican.com/">Pelican</a></li>
+                            <li><a href="https://www.python.org/">Python.org</a></li>
+                            <li><a href="https://palletsprojects.com/p/jinja/">Jinja2</a></li>
+                            <li><a href="#">You can modify those links in your config file</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+                            <li><a href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
+
+                            <li><a href="#">You can add links in your config file</a></li>
+                            <li><a href="#">Another social link</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="https://getpelican.com/">Pelican</a>, which takes great advantage of <a href="https://www.python.org/">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>

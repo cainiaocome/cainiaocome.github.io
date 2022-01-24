@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <meta name="generator" content="Pelican" />
+        <title>Block ads using DNS on OpenWRT</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+        <link href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="jlz's blog Atom Feed" />
+        <meta name="description" content="Recently I switched to OpenWRT as my gateway to the Internet. It has been a great pleasure. Stock firmware of routers just sucks. With OpenWRT, I..." />
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">jlz's blog</a></h1>
+                <nav><ul>
+                    <li><a href="/category/ansible.html">ansible</a></li>
+                    <li><a href="/category/cv.html">CV</a></li>
+                    <li><a href="/category/financial.html">financial</a></li>
+                    <li class="active"><a href="/category/linux.html">Linux</a></li>
+                    <li><a href="/category/pelican.html">pelican</a></li>
+                    <li><a href="/category/proxmox.html">proxmox</a></li>
+                    <li><a href="/category/sql.html">SQL</a></li>
+                    <li><a href="/category/ubuntu.html">ubuntu</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="/block-ads-using-dns-on-openwrt.html" rel="bookmark"
+           title="Permalink to Block ads using DNS on OpenWRT">Block ads using DNS on OpenWRT</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2021-10-07T09:43:30+08:00">
+                Published: 四 07 十月 2021
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/jlz.html">jlz</a>
+        </address>
+<p>In <a href="/category/linux.html">Linux</a>.</p>
+
+</footer><!-- /.post-info -->      <p>Recently I switched to OpenWRT as my gateway to the Internet. It has been a great pleasure. Stock firmware of routers just sucks. With OpenWRT, I can ssh into it, install packages, a nice web interface, the configuration makes sense, super smooth and quick, ad blocking, VPN, so on and on.</p>
+<p>I just added adblock to my router yesterday, here are the commands of the process:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Install packages</span>
+opkg update
+opkg install adblock
+
+<span class="c1"># Provide web interface</span>
+opkg install luci-app-adblock
+
+<span class="c1"># Backup the blocklists</span>
+uci <span class="nb">set</span> adblock.global.adb_backupdir<span class="o">=</span><span class="s2">&quot;/etc/adblock&quot;</span>
+
+<span class="c1"># Save and apply</span>
+uci commit adblock
+/etc/init.d/adblock restart
+</code></pre></div>
+
+<p>You can read more about it <a href="https://openwrt.org/docs/guide-user/services/ad-blocking">here</a></p>
+<p>The default configuration should cost about 6M RAM (with "DNS Report" turned on) and less than 1M disk space. In my situation this is fine, you should check your router's ram and disk before applying these commands.</p>
+<p>You can turn on "DNS Report" on the Luci web. I like to analyze the performance and result so I turned it on.</p>
+<p>However, using DNS to block ads is inefficient and prone to be bypassed. For example, the apps on your phone can use their DNS server, or use DNS-over-HTTPS, to bypass it. Not much can be done to DNS-over-HTTPS and doh is becoming more and more common. The ecosystem of mobile phones is pretty toxic. Personally, I prefer using browsers, even on my phone. Blocking ads on mobile browsers is another story.</p>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>links</h2>
+                        <ul>
+                            <li><a href="https://getpelican.com/">Pelican</a></li>
+                            <li><a href="https://www.python.org/">Python.org</a></li>
+                            <li><a href="https://palletsprojects.com/p/jinja/">Jinja2</a></li>
+                            <li><a href="#">You can modify those links in your config file</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+                            <li><a href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
+
+                            <li><a href="#">You can add links in your config file</a></li>
+                            <li><a href="#">Another social link</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="https://getpelican.com/">Pelican</a>, which takes great advantage of <a href="https://www.python.org/">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>

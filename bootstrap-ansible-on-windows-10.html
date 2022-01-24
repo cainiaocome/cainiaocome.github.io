@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <meta name="generator" content="Pelican" />
+        <title>bootstrap ansible on windows 10</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+        <link href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="jlz's blog Atom Feed" />
+        <meta name="description" content="to be updated, I don't have time recently, I am reading libp2p source code and documentation lately. set network connection profile, more at here..." />
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">jlz's blog</a></h1>
+                <nav><ul>
+                    <li class="active"><a href="/category/ansible.html">ansible</a></li>
+                    <li><a href="/category/cv.html">CV</a></li>
+                    <li><a href="/category/financial.html">financial</a></li>
+                    <li><a href="/category/linux.html">Linux</a></li>
+                    <li><a href="/category/pelican.html">pelican</a></li>
+                    <li><a href="/category/proxmox.html">proxmox</a></li>
+                    <li><a href="/category/sql.html">SQL</a></li>
+                    <li><a href="/category/ubuntu.html">ubuntu</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="/bootstrap-ansible-on-windows-10.html" rel="bookmark"
+           title="Permalink to bootstrap ansible on windows 10">bootstrap ansible on windows 10</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2021-10-13T06:12:34+00:00">
+                Published: 三 13 十月 2021
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/jlz.html">jlz</a>
+        </address>
+<p>In <a href="/category/ansible.html">ansible</a>.</p>
+
+</footer><!-- /.post-info -->      <ul>
+<li>
+<p>to be updated, I don't have time recently, I am reading libp2p source code and documentation lately.</p>
+</li>
+<li>
+<p>set network connection profile, more at <a href="https://docs.microsoft.com/en-us/powershell/module/netconnection/set-netconnectionprofile?view=windowsserver2019-ps">here</a></p>
+</li>
+<li>enable smb v2/v3 protocol, more at <a href="https://docs.microsoft.com/en-us/windows-server/storage/file-server/troubleshoot/detect-enable-and-disable-smbv1-v2-v3">here</a></li>
+<li>disable firewall, more at <a href="https://www.faqforge.com/windows/turn-off-firewall-using-powershell-command-prompt/">here</a>, or you can only allow 445 port income from certain hosts.
+    <code>powershell
+    Set-NetConnectionProfile -NetworkCategory "Private"
+    Set-SmbServerConfiguration -EnableSMB2Protocol $true
+    Set-NetFirewallProfile -Profile Private -Enabled False</code></li>
+</ul>
+<p>Now you should be able to use ansible psexec module to execute command on this windows machine.</p>
+<p><a href="https://docs.ansible.com/ansible/latest/collections/community/windows/psexec_module.html#ansible-collections-community-windows-psexec-module">The document of ansible module psexec</a> says:
+* Runs a remote command from a Linux host to a Windows host without WinRM being set up.
+* Can be run on the Ansible controller to bootstrap Windows hosts to get them ready for WinRM.
+So we can get this windows machine ready for WinRM using psexec module</p>
+<ol>
+<li>ansible module psexec requires:<ol>
+<li>pypsexec</li>
+<li>smbprotocol[kerberos] for optional Kerberos authentication</li>
+</ol>
+</li>
+<li>psexec can be installed by pip, you don't need Kerberos authentication for now.
+    <code>bash
+    ansible-galaxy collection install community.windows
+    pip install pypsexec</code></li>
+</ol>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>links</h2>
+                        <ul>
+                            <li><a href="https://getpelican.com/">Pelican</a></li>
+                            <li><a href="https://www.python.org/">Python.org</a></li>
+                            <li><a href="https://palletsprojects.com/p/jinja/">Jinja2</a></li>
+                            <li><a href="#">You can modify those links in your config file</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+                            <li><a href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
+
+                            <li><a href="#">You can add links in your config file</a></li>
+                            <li><a href="#">Another social link</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="https://getpelican.com/">Pelican</a>, which takes great advantage of <a href="https://www.python.org/">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>

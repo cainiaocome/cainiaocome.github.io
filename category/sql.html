@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <meta name="generator" content="Pelican" />
+        <title>jlz's blog - SQL</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+        <link href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="jlz's blog Atom Feed" />
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">jlz's blog</a></h1>
+                <nav><ul>
+                    <li><a href="/category/ansible.html">ansible</a></li>
+                    <li><a href="/category/cv.html">CV</a></li>
+                    <li><a href="/category/financial.html">financial</a></li>
+                    <li><a href="/category/linux.html">Linux</a></li>
+                    <li><a href="/category/pelican.html">pelican</a></li>
+                    <li><a href="/category/proxmox.html">proxmox</a></li>
+                    <li class="active"><a href="/category/sql.html">SQL</a></li>
+                    <li><a href="/category/ubuntu.html">ubuntu</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+
+            <aside id="featured" class="body">
+                <article>
+                    <h1 class="entry-title"><a href="/sql-tips.html">SQL tips</a></h1>
+<footer class="post-info">
+        <abbr class="published" title="2021-10-08T10:14:12+08:00">
+                Published: 五 08 十月 2021
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/jlz.html">jlz</a>
+        </address>
+<p>In <a href="/category/sql.html">SQL</a>.</p>
+
+</footer><!-- /.post-info --><p>Last update: 2021-10-08</p>
+<p>Here are some tips that I hope somebody told me earlier:</p>
+<ol>
+<li>select from multiple tables implicitly means cross join, simple "join" also means cross join. The following two SQL queries both return cross join of Parts and Suppliers.</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="n">select</span> <span class="o">*</span> <span class="kn">from</span> <span class="nn">Parts</span><span class="p">,</span> <span class="n">Suppliers</span>
+<span class="n">select</span> <span class="o">*</span> <span class="kn">from</span> <span class="nn">Parts</span> <span class="n">join</span> <span class="n">Suppliers</span>
+</code></pre></div>
+
+<ol>
+<li>You can use the "with" clause to define temporary tables and use it in following SQL queries. This can simplify SQL queries and easier to understand.</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="k">with</span>
+    <span class="n">Cheap_Parts</span> <span class="k">as</span> <span class="p">(</span><span class="n">select</span> <span class="o">*</span> <span class="kn">from</span> <span class="nn">Parts</span> <span class="n">where</span> <span class="n">Parts</span><span class="o">.</span><span class="n">cost</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">),</span>
+    <span class="n">Expensive_Parts</span> <span class="k">as</span> <span class="p">(</span><span class="n">select</span> <span class="o">*</span> <span class="kn">from</span> <span class="nn">Parts</span> <span class="n">where</span> <span class="n">Parts</span><span class="o">.</span><span class="n">cost</span> <span class="o">&gt;=</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="n">select</span> <span class="o">*</span> <span class="kn">from</span> <span class="nn">Cheap_Parts</span>
+</code></pre></div>
+
+<ol>
+<li>SQL does have an evaluation order. Some people might have heard about SQL optimizers and think that the order is determined by the optimizer. But that is the execution process. SQL does have a logical evaluation order, or else how can we be sure that the result would be determined? I am not talking about non-deterministic functions in SQL here. In general, the evaluation order is listed below. You can read more about it at <a href="https://docs.microsoft.com/en-us/sql/t-sql/queries/select-transact-sql?redirectedfrom=MSDN&amp;view=sql-server-ver15">here</a>, <a href="https://sqlbolt.com/lesson/select_queries_order_of_execution">here</a>, and <a href="https://jvns.ca/blog/2019/10/03/sql-queries-don-t-start-with-select/">here</a></li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="n">FROM</span> <span class="o">-&gt;</span> <span class="n">ON</span> <span class="o">-&gt;</span> <span class="n">JOIN</span> <span class="o">-&gt;</span> <span class="n">WHERE</span> <span class="o">-&gt;</span> <span class="n">GROUP</span> <span class="n">BY</span> <span class="o">-&gt;</span> <span class="n">HAVING</span> <span class="o">-&gt;</span> <span class="n">SELECT</span> <span class="o">-&gt;</span> <span class="n">DISTINCT</span> <span class="o">-&gt;</span> <span class="n">ORDER</span> <span class="n">BY</span> <span class="o">-&gt;</span> <span class="n">TOP</span>
+</code></pre></div>                </article>
+            </aside><!-- /#featured -->
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>links</h2>
+                        <ul>
+                            <li><a href="https://getpelican.com/">Pelican</a></li>
+                            <li><a href="https://www.python.org/">Python.org</a></li>
+                            <li><a href="https://palletsprojects.com/p/jinja/">Jinja2</a></li>
+                            <li><a href="#">You can modify those links in your config file</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+                            <li><a href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
+
+                            <li><a href="#">You can add links in your config file</a></li>
+                            <li><a href="#">Another social link</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="https://getpelican.com/">Pelican</a>, which takes great advantage of <a href="https://www.python.org/">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>

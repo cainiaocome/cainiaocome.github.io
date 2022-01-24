@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <meta name="generator" content="Pelican" />
+        <title>How to get rid of "remote host key identification changed" for good</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+        <link href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="jlz's blog Atom Feed" />
+        <meta name="description" content="First of all, this is violating security rules, but anyway, you can do it. Modify ~/.ssh/config like this: Host raspberrypi HostName localhost..." />
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">jlz's blog</a></h1>
+                <nav><ul>
+                    <li><a href="/category/ansible.html">ansible</a></li>
+                    <li><a href="/category/cv.html">CV</a></li>
+                    <li><a href="/category/financial.html">financial</a></li>
+                    <li class="active"><a href="/category/linux.html">Linux</a></li>
+                    <li><a href="/category/pelican.html">pelican</a></li>
+                    <li><a href="/category/proxmox.html">proxmox</a></li>
+                    <li><a href="/category/sql.html">SQL</a></li>
+                    <li><a href="/category/ubuntu.html">ubuntu</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="/how-to-get-rid-of-remote-host-key-identification-changed-for-good.html" rel="bookmark"
+           title="Permalink to How to get rid of "remote host key identification changed" for good">How to get rid of "remote host key identification changed" for good</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2021-09-27T16:45:37+08:00">
+                Published: 一 27 九月 2021
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/jlz.html">jlz</a>
+        </address>
+<p>In <a href="/category/linux.html">linux</a>.</p>
+
+</footer><!-- /.post-info -->      <p>First of all, this is violating security rules, but anyway, you can do it.</p>
+<p>Modify ~/.ssh/config like this:</p>
+<div class="highlight"><pre><span></span><code>Host raspberrypi
+        HostName localhost
+        UserKnownHostsFile=/dev/null
+        StrictHostKeyChecking=no
+</code></pre></div>
+
+<p>When experimenting with vms and if you are destroying and re-build vms frequently, you might see this warning messages a lot, so, it might be helpful someday.</p>
+<p><a href="https://linuxcommando.blogspot.com/2008/10/how-to-disable-ssh-host-key-checking.html">I found it here</a></p>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>links</h2>
+                        <ul>
+                            <li><a href="https://getpelican.com/">Pelican</a></li>
+                            <li><a href="https://www.python.org/">Python.org</a></li>
+                            <li><a href="https://palletsprojects.com/p/jinja/">Jinja2</a></li>
+                            <li><a href="#">You can modify those links in your config file</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+                            <li><a href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
+
+                            <li><a href="#">You can add links in your config file</a></li>
+                            <li><a href="#">Another social link</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="https://getpelican.com/">Pelican</a>, which takes great advantage of <a href="https://www.python.org/">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>

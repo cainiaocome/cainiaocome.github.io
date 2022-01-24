@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <meta name="generator" content="Pelican" />
+        <title>Ubuntu 20.04 Bluetooth headphone problems</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+        <link href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="jlz's blog Atom Feed" />
+        <meta name="description" content="From my experience, the wireless Bluetooth driver in Ubuntu is not written very well. I have met some severe problems with it. For example, one..." />
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">jlz's blog</a></h1>
+                <nav><ul>
+                    <li><a href="/category/ansible.html">ansible</a></li>
+                    <li><a href="/category/cv.html">CV</a></li>
+                    <li><a href="/category/financial.html">financial</a></li>
+                    <li><a href="/category/linux.html">Linux</a></li>
+                    <li><a href="/category/pelican.html">pelican</a></li>
+                    <li><a href="/category/proxmox.html">proxmox</a></li>
+                    <li><a href="/category/sql.html">SQL</a></li>
+                    <li class="active"><a href="/category/ubuntu.html">ubuntu</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="/ubuntu-2004-bluetooth-headphone-problems.html" rel="bookmark"
+           title="Permalink to Ubuntu 20.04 Bluetooth headphone problems">Ubuntu 20.04 Bluetooth headphone problems</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2020-10-23T18:37:01+08:00">
+                Published: 五 23 十月 2020
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/jlz.html">jlz</a>
+        </address>
+<p>In <a href="/category/ubuntu.html">Ubuntu</a>.</p>
+
+</footer><!-- /.post-info -->      <p>From my experience, the wireless Bluetooth driver in Ubuntu is not written very well. I have met some severe problems with it. </p>
+<p>For example, one time I noticed one very strange problem: youtube videos do not play in Chrome, but you can drag the progress bar to anywhere, the image shows correctly but it just does not play! My first thought was that maybe the codec is corrupted, so I updated Chrome, but the problem remained. Then I think maybe it's a bug of Chrome, so I tested MPV to play local videos, weird, same problem. I suspect that my system is corrupted but I don't want to reinstall or upgrade. After searching on the web and thinking about the problem, I finally found out that it is the headphone, or I should say, the Bluetooth driver in Linux. The gnome-settings says it is connected to my headphone, but the connection has already become stale, no data can be transferred to the headphone. So every time application tries to send data via Bluetooth, it does not respond.</p>
+<p>I have met another even more severe problem. One time when I was writing my personal statement, the fan of the computer spins really fast, which is weird because I am just writing a document, the load on the CPU should be low. But when I opened htop, I saw all 8 cores of CPU is running at 100 percent, and the criminal is the "bluetoothd", which should be Bluetooth service. Before I figured out what was happening, the whole system stopped responding, I had to use the REISUB trick to reboot the system.</p>
+<p>I am here to provide a simple solution for all these headaches, which I hope it would help someone who reads this.</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="ch">#!/usr/bin/env bash</span>
+
+sudo rmmod btusb
+sudo modprobe btusb
+
+sudo rfkill unblock all
+sudo systemctl restart bluetooth
+sudo bluetoothctl power on
+</code></pre></div>
+</td></tr></table>
+<p>Anytime you met with Bluetooth problems, you can just "restart" the driver, which should fix the problem at your hands.</p>
+<p>And I hope someday the driver will work perfectly and this trick would be useless.</p>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>links</h2>
+                        <ul>
+                            <li><a href="https://getpelican.com/">Pelican</a></li>
+                            <li><a href="https://www.python.org/">Python.org</a></li>
+                            <li><a href="https://palletsprojects.com/p/jinja/">Jinja2</a></li>
+                            <li><a href="#">You can modify those links in your config file</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+                            <li><a href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
+
+                            <li><a href="#">You can add links in your config file</a></li>
+                            <li><a href="#">Another social link</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="https://getpelican.com/">Pelican</a>, which takes great advantage of <a href="https://www.python.org/">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <meta name="generator" content="Pelican" />
+        <title>jlz's blog</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+        <link href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="jlz's blog Atom Feed" />
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">jlz's blog</a></h1>
+                <nav><ul>
+                    <li><a href="/category/ansible.html">ansible</a></li>
+                    <li><a href="/category/cv.html">CV</a></li>
+                    <li><a href="/category/financial.html">financial</a></li>
+                    <li><a href="/category/linux.html">Linux</a></li>
+                    <li><a href="/category/pelican.html">pelican</a></li>
+                    <li><a href="/category/proxmox.html">proxmox</a></li>
+                    <li><a href="/category/sql.html">SQL</a></li>
+                    <li><a href="/category/ubuntu.html">ubuntu</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+
+                <section id="content" class="body">
+                    <ol id="posts-list" class="hfeed" start="9">
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/how-to-backup-and-restore-proxmox-vms.html" rel="bookmark"
+                           title="Permalink to How to backup and restore proxmox vms">How to backup and restore proxmox vms</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2021-09-27T16:36:07+08:00">
+                Published: 一 27 九月 2021
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/jlz.html">jlz</a>
+        </address>
+<p>In <a href="/category/proxmox.html">proxmox</a>.</p>
+
+</footer><!-- /.post-info -->                <p>I am running proxmox on my own homelab server, so I don't care that much about downtime, I can use stop mode to backup my vms without any problem. So, to backup and restore vm on another machine, just follow these steps:</p>
+<ol>
+<li>stop vm</li>
+<li>vzdump $vmid [--dumpdir /mnt/backup]  # default …</li></ol>
+                <a class="readmore" href="/how-to-backup-and-restore-proxmox-vms.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/ubuntu-2004-bluetooth-headphone-problems.html" rel="bookmark"
+                           title="Permalink to Ubuntu 20.04 Bluetooth headphone problems">Ubuntu 20.04 Bluetooth headphone problems</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2020-10-23T18:37:01+08:00">
+                Published: 五 23 十月 2020
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/jlz.html">jlz</a>
+        </address>
+<p>In <a href="/category/ubuntu.html">Ubuntu</a>.</p>
+
+</footer><!-- /.post-info -->                <p>From my experience, the wireless Bluetooth driver in Ubuntu is not written very well. I have met some severe problems with it. </p>
+<p>For example, one time I noticed one very strange problem: youtube videos do not play in Chrome, but you can drag the progress bar to anywhere, the image …</p>
+                <a class="readmore" href="/ubuntu-2004-bluetooth-headphone-problems.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/some-of-my-projects-tools-and-scripts.html" rel="bookmark"
+                           title="Permalink to Some of my projects, tools and scripts">Some of my projects, tools and scripts</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2020-10-08T00:00:00+08:00">
+                Published: 四 08 十月 2020
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/jlz.html">jlz</a>
+        </address>
+<p>In <a href="/category/cv.html">CV</a>.</p>
+
+</footer><!-- /.post-info -->                <h3>HTTP traffic index engine</h3>
+<ul>
+<li>design and implement an HTTP request hash algorithm to filter similar HTTP request(from penetration testing perspective)</li>
+<li>design and implement a web page structural clustering algorithm to filter similar web page(from penetration testing perspective)</li>
+<li>design and implement a crawler-based on these two algorithms to index …</li></ul>
+                <a class="readmore" href="/some-of-my-projects-tools-and-scripts.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/sshfs-transport-endpoint-is-not-connected.html" rel="bookmark"
+                           title="Permalink to sshfs Transport endpoint is not connected">sshfs Transport endpoint is not connected</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2020-04-25T12:26:54+08:00">
+                Published: 六 25 四月 2020
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/jlz.html">jlz</a>
+        </address>
+<p>In <a href="/category/ubuntu.html">Ubuntu</a>.</p>
+
+</footer><!-- /.post-info -->                <p>I have a notebook running Ubuntu 18.04 and a raspberry pi(4B with 4GB ram, which is a fantastic version of raspberry pi), both are on 7x24. Because capacity of the harddisk in the notebook is not large(only 64GB), I use sshfs to mount one hard disk(1TB …</p>
+                <a class="readmore" href="/sshfs-transport-endpoint-is-not-connected.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/why-use-return-only-to-construct-event-from-financial-time-series-is-a-bad-idea.html" rel="bookmark"
+                           title="Permalink to Why use return only to construct event from financial time series is a bad idea">Why use return only to construct event from financial time series is a bad idea</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2020-04-24T18:24:47+08:00">
+                Published: 五 24 四月 2020
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/jlz.html">jlz</a>
+        </address>
+<p>In <a href="/category/financial.html">financial</a>.</p>
+
+</footer><!-- /.post-info -->                <p>It is a bad idea to construct events from financial time series by return. The following is an example:</p>
+<div class="highlight"><pre><span></span><code># <span class="nv">au</span>
+
+<span class="nv">i</span> <span class="o">=</span> <span class="mi">30</span>
+<span class="nv">delta</span> <span class="o">=</span> <span class="nv">tmpdf</span>.<span class="nv">close</span>.<span class="nv">shift</span><span class="ss">(</span><span class="o">-</span><span class="nv">i</span><span class="ss">)</span> <span class="o">-</span> <span class="nv">tmpdf</span>.<span class="nv">close</span>
+<span class="nv">delta</span> <span class="o">=</span> <span class="nv">delta</span>[<span class="nv">market_open_and_close_time_range</span>.<span class="nv">not_include_these</span><span class="ss">(</span><span class="nv">delta</span>.<span class="nv">index</span><span class="ss">)</span>]
+<span class="nv">delta</span> <span class="o">=</span> <span class="nv">delta</span>[<span class="nv">np</span>.<span class="nv">abs</span><span class="ss">(</span><span class="nv">delta</span><span class="ss">)</span><span class="o">&gt;</span><span class="mi">0</span>.<span class="mi">2</span>]
+<span class="nv">ts</span> <span class="o">=</span> <span class="nv">pd</span>.<span class="nv">Series</span><span class="ss">(</span><span class="nv">list</span><span class="ss">(</span><span class="nv">delta</span>.<span class="nv">index</span><span class="ss">))</span>
+<span class="nv">x</span> <span class="o">=</span> <span class="nv">group_ts_by_gap …</span></code></pre></div>
+                <a class="readmore" href="/why-use-return-only-to-construct-event-from-financial-time-series-is-a-bad-idea.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/a-minor-ubuntu-1804-bluetooth-problem.html" rel="bookmark"
+                           title="Permalink to A minor Ubuntu 18.04 bluetooth problem">A minor Ubuntu 18.04 bluetooth problem</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2020-04-16T13:46:36+08:00">
+                Published: 四 16 四月 2020
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/jlz.html">jlz</a>
+        </address>
+<p>In <a href="/category/ubuntu.html">Ubuntu</a>.</p>
+
+</footer><!-- /.post-info -->                <p>Several days ago, my 2.4G mouse is broken because the usb receiver can not work properly, so I bought another bluetooth/2.4G mouse on taobao, which costs me only 30 yuan(5 dollars).But there is a small problem with the bluetooth connection.Sometimes the connection just dies …</p>
+                <a class="readmore" href="/a-minor-ubuntu-1804-bluetooth-problem.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/blog-on-github-with-pelican.html" rel="bookmark"
+                           title="Permalink to Blog on Github with pelican">Blog on Github with pelican</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2020-04-11T21:17:54+08:00">
+                Published: 六 11 四月 2020
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/jlz.html">jlz</a>
+        </address>
+<p>In <a href="/category/pelican.html">pelican</a>.</p>
+
+</footer><!-- /.post-info -->                <p>It has been a long time since i wrote blogs. I think it is time to write some thoughts down and practice my English.</p>
+<p>It's very easy to blog on Github with pelican.</p>
+<ol>
+<li>create a repository on github like this: cainiaocome.github.io, replace cainiaocome with your username</li>
+<li>pip install …</li></ol>
+                <a class="readmore" href="/blog-on-github-with-pelican.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+                </ol><!-- /#posts-list -->
+<p class="paginator">
+        <a href="/index.html">&#8647;</a>
+        <a href="/index.html">&laquo;</a>
+    Page 2 / 2
+</p>
+                </section><!-- /#content -->
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>links</h2>
+                        <ul>
+                            <li><a href="https://getpelican.com/">Pelican</a></li>
+                            <li><a href="https://www.python.org/">Python.org</a></li>
+                            <li><a href="https://palletsprojects.com/p/jinja/">Jinja2</a></li>
+                            <li><a href="#">You can modify those links in your config file</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+                            <li><a href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
+
+                            <li><a href="#">You can add links in your config file</a></li>
+                            <li><a href="#">Another social link</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="https://getpelican.com/">Pelican</a>, which takes great advantage of <a href="https://www.python.org/">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>

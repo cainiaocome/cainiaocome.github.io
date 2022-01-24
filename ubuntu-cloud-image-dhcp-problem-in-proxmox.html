@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <meta name="generator" content="Pelican" />
+        <title>Ubuntu cloud image dhcp problem in proxmox</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+        <link href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="jlz's blog Atom Feed" />
+        <meta name="description" content="When I create new qemu vm in proxmox, I prefer clone from a template becase this way is faster. The template comes from vm which I have booted..." />
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">jlz's blog</a></h1>
+                <nav><ul>
+                    <li><a href="/category/ansible.html">ansible</a></li>
+                    <li><a href="/category/cv.html">CV</a></li>
+                    <li><a href="/category/financial.html">financial</a></li>
+                    <li><a href="/category/linux.html">Linux</a></li>
+                    <li><a href="/category/pelican.html">pelican</a></li>
+                    <li class="active"><a href="/category/proxmox.html">proxmox</a></li>
+                    <li><a href="/category/sql.html">SQL</a></li>
+                    <li><a href="/category/ubuntu.html">ubuntu</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="/ubuntu-cloud-image-dhcp-problem-in-proxmox.html" rel="bookmark"
+           title="Permalink to Ubuntu cloud image dhcp problem in proxmox">Ubuntu cloud image dhcp problem in proxmox</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2022-01-23T07:57:15-03:30">
+                Published: 日 23 一月 2022
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/jlz.html">jlz</a>
+        </address>
+<p>In <a href="/category/proxmox.html">proxmox</a>.</p>
+
+</footer><!-- /.post-info -->      <p>When I create new qemu vm in proxmox, I prefer clone from a template becase this way is faster.
+The template comes from vm which I have booted once and made some modification.
+My pve is running on a n3350 mini pc, the performance is miserable when building a new vm scratch from an disk image. 
+But it can handle tens of running vms without problem, as long as the vm is not doing some heavy computing.</p>
+<p>The problem is, every time I clone a template, when booting the cloned vm, the first dhcp packet seems coming from cloud-init, and at that time, network stack has not start up so there is no mac address available for cloud-init to read.
+So it seems cloud-init will read from a file, /etc/machine-id, as a mac address to send first dhcp request.
+That poses a problem: the machine-id of every cloned vm is same.
+The solution is: empty the file /etc/machine-id, it seems cloud-init will regenerate one if it is empty.
+Different vms have different names, and we want to resolve vm's ip by its name.
+The problem is: in proxmox, the snippets defined variables seems have higher priority than settings in the cloud-init section in the settings of vm and name of the vm(consider hostname).
+The solution is: modify the snippets file instead of relying on the name of the vm to modify hostname.</p>
+<p>It took me a long way to finally got these two pieces of solution.
+I have tried many other ways, but it seems this is the best for me now. </p>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>links</h2>
+                        <ul>
+                            <li><a href="https://getpelican.com/">Pelican</a></li>
+                            <li><a href="https://www.python.org/">Python.org</a></li>
+                            <li><a href="https://palletsprojects.com/p/jinja/">Jinja2</a></li>
+                            <li><a href="#">You can modify those links in your config file</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+                            <li><a href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
+
+                            <li><a href="#">You can add links in your config file</a></li>
+                            <li><a href="#">Another social link</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="https://getpelican.com/">Pelican</a>, which takes great advantage of <a href="https://www.python.org/">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>

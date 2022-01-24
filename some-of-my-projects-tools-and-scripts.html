@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <meta name="generator" content="Pelican" />
+        <title>Some of my projects, tools and scripts</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+        <link href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="jlz's blog Atom Feed" />
+        <meta name="description" content="HTTP traffic index engine design and implement an HTTP request hash algorithm to filter similar HTTP request(from penetration testing perspective)..." />
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">jlz's blog</a></h1>
+                <nav><ul>
+                    <li><a href="/category/ansible.html">ansible</a></li>
+                    <li class="active"><a href="/category/cv.html">CV</a></li>
+                    <li><a href="/category/financial.html">financial</a></li>
+                    <li><a href="/category/linux.html">Linux</a></li>
+                    <li><a href="/category/pelican.html">pelican</a></li>
+                    <li><a href="/category/proxmox.html">proxmox</a></li>
+                    <li><a href="/category/sql.html">SQL</a></li>
+                    <li><a href="/category/ubuntu.html">ubuntu</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="/some-of-my-projects-tools-and-scripts.html" rel="bookmark"
+           title="Permalink to Some of my projects, tools and scripts">Some of my projects, tools and scripts</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2020-10-08T00:00:00+08:00">
+                Published: 四 08 十月 2020
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/jlz.html">jlz</a>
+        </address>
+<p>In <a href="/category/cv.html">CV</a>.</p>
+
+</footer><!-- /.post-info -->      <h3>HTTP traffic index engine</h3>
+<ul>
+<li>design and implement an HTTP request hash algorithm to filter similar HTTP request(from penetration testing perspective)</li>
+<li>design and implement a web page structural clustering algorithm to filter similar web page(from penetration testing perspective)</li>
+<li>design and implement a crawler-based on these two algorithms to index HTTP traffic</li>
+</ul>
+<h3>web attack detection using Machine Learning</h3>
+<ul>
+<li>collect web attack payloads, including SQL injection payloads, XSS payloads, command injection payloads, XXE payloads, some other RCE payloads like s2-045, and normal HTTP traffic</li>
+<li>test multiple different Machine Learning classification algorithms' false-positive rate and false-negative rate, implemented the most efficient and acceptable model</li>
+</ul>
+<h3>high-frequency futures trading bot</h3>
+<ul>
+<li>implement order imbalance algorithm</li>
+<li>test on multiple futures instruments, some work, some not</li>
+<li>working on implementing high market access</li>
+</ul>
+<h3>leetcode problem Python solutions</h3>
+<ul>
+<li>many leetcode problems' Python solutions</li>
+</ul>
+<h3>LD_PRELOAD based user-space educational Linux rootkit</h3>
+<ul>
+<li>can hide file, process, user</li>
+<li>supports both 32-bit and 64-bit system calls</li>
+<li>works on all distributions</li>
+<li>works on all kernel versions(since it is user-space, no need to worry about kernel versions)</li>
+<li>cons: does not work for statically linked binaries</li>
+</ul>
+<h3>captcha solver using Deep Learning(based on LSTM and CTC loss)</h3>
+<ul>
+<li>tried years to do this using traditional computer vision algorithms, well, results were not good</li>
+<li>after deep learning evolved to a more mature stage and CTC loss was introduced, solved it in no time</li>
+</ul>
+<h3>Python source code obfuscation tool</h3>
+<ul>
+<li>parse abstract syntax tree(it is very easy to do this in Python)</li>
+<li>manipulate tree node, like, split a meaningful string to multiple meaningless numbers, add no-op code, etc</li>
+</ul>
+<h3>multiple POCs</h3>
+<ul>
+<li>multiple struts2 RCE pocs</li>
+<li>solr RCE poc</li>
+</ul>
+<h3>fast and secure file transfer tool in a high packet loss environment</h3>
+<ul>
+<li>password protected upload point</li>
+<li>segment file into chunks</li>
+<li>multi-thread transfer</li>
+<li>packet timeout and re-transfer</li>
+</ul>
+<h3>gnome desktop environment init tool</h3>
+<ul>
+<li>convenient and flexible</li>
+<li>run commands in gnome-terminal</li>
+<li>Chrome, telegram, nautilus, atom, calibre, bitwarden</li>
+<li>some GUI automation helpers</li>
+</ul>
+<h3>quantitative trading utils</h3>
+<ul>
+<li>time and time range utils</li>
+<li>plot volume and price</li>
+<li>load,clean,transform tick data</li>
+<li>sample history data</li>
+</ul>
+<h3>Python script "compile" tool</h3>
+<ul>
+<li>"compile" a script to a one-file binary using pyinstaller</li>
+<li>clean up intermediate files</li>
+</ul>
+<h3>youtube music library no-copyright-music downloader</h3>
+<ul>
+<li>parse youtube music library web page and API request</li>
+<li>extract no-copyright-music URLs</li>
+<li>download and save to files</li>
+</ul>
+<h3>others</h3>
+<ul>
+<li>tmux session init tool</li>
+<li>cloudflare nodes latency test and record tool</li>
+<li>videos to music converting tool</li>
+<li>PE(portable executable) analysis tool</li>
+<li>v2ray config generation tool</li>
+<li>Internet speed test and record tool</li>
+<li>backup automation tool</li>
+<li>time series data animation tool</li>
+<li>markdown to pdf automation tool</li>
+<li>GPA calculation tool</li>
+<li>video process automation tool</li>
+</ul>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>links</h2>
+                        <ul>
+                            <li><a href="https://getpelican.com/">Pelican</a></li>
+                            <li><a href="https://www.python.org/">Python.org</a></li>
+                            <li><a href="https://palletsprojects.com/p/jinja/">Jinja2</a></li>
+                            <li><a href="#">You can modify those links in your config file</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+                            <li><a href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
+
+                            <li><a href="#">You can add links in your config file</a></li>
+                            <li><a href="#">Another social link</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="https://getpelican.com/">Pelican</a>, which takes great advantage of <a href="https://www.python.org/">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <meta name="generator" content="Pelican" />
+        <title>How to install openwrt on redmi ac2100</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+        <link href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="jlz's blog Atom Feed" />
+        <meta name="description" content="Redmi ac2100 is a pretty good router for home use, except that its rom is a "highly customized" openwrt which restrictions are too strict and I..." />
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">jlz's blog</a></h1>
+                <nav><ul>
+                    <li><a href="/category/ansible.html">ansible</a></li>
+                    <li><a href="/category/cv.html">CV</a></li>
+                    <li><a href="/category/financial.html">financial</a></li>
+                    <li class="active"><a href="/category/linux.html">Linux</a></li>
+                    <li><a href="/category/pelican.html">pelican</a></li>
+                    <li><a href="/category/proxmox.html">proxmox</a></li>
+                    <li><a href="/category/sql.html">SQL</a></li>
+                    <li><a href="/category/ubuntu.html">ubuntu</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="/how-to-install-openwrt-on-redmi-ac2100.html" rel="bookmark"
+           title="Permalink to How to install openwrt on redmi ac2100">How to install openwrt on redmi ac2100</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2021-09-29T13:03:51+08:00">
+                Published: 三 29 九月 2021
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/jlz.html">jlz</a>
+        </address>
+<p>In <a href="/category/linux.html">linux</a>.</p>
+
+</footer><!-- /.post-info -->      <p>Redmi ac2100 is a pretty good router for home use, except that its rom is a "highly customized" openwrt which restrictions are too strict and I remember that several years ago xiaomi added some nasty "functionalities" into their router devices which can inject javascript int web pages users browse and profit.</p>
+<p>Anyway, here are some useful links:</p>
+<ol>
+<li><a href="https://openwrt.org/toh/hwdata/xiaomi/xiaomi_redmi_router_ac2100">tech data about readmi ac2100</a></li>
+<li><a href="http://forum.openwrt.org/t/new-xiaomi-router-ac2100">openwrt forum topic about ac2100</a> There are many interesting posts in this page, you can see the process of people cracking a router, fascinating, I hope I have more time to read and try these things out.</li>
+<li><a href="https://openwrt.org/toh/xiaomi/xiaomi_redmi_router_ac2100">official doc of installing openwrt on ac2100</a> </li>
+</ol>
+<p>I used method A(web exploit) in previous link, it's pretty easy and interesting. Read <a href="https://openwrt.org/toh/hwdata/xiaomi/xiaomi_redmi_router_ac2100">link 1</a> and <a href="https://openwrt.org/toh/xiaomi/xiaomi_redmi_router_ac2100">link 3</a> carefully before you do anything. And optionally you can flash BREED as new bootloader, I did this step, it will allow you to recover more easily once you brick the device, you can also flash rom more easily with BREED.</p>
+<p>I will check method B later if I got time, which is even more interesting.</p>
+<p>some tips and informations you might want to know:</p>
+<ol>
+<li>MTD is a kind of storage device, it is different from both block device and character device. You can google more about it.</li>
+<li>mtd is a tool in openwrt to write to MTD device, remember, MTD is different from block device, you need specific tools to write raw data to it. Read more about mtd utility <a href="https://openwrt.org/docs/techref/mtd">here</a></li>
+<li>openwrt will not turn on wireless interfaces by default if ethernet lan exists, so you need to turn them on. Read more about how to turn wifi on <a href="https://openwrt.org/docs/guide-quick-start/basic_wifi">here</a></li>
+<li>You better set the country code in the wireless settings, or else you might break the law, even may be end up in jail? I'm not sure.</li>
+<li>If you configured 5GHz Wifi, don't panic if you don't see your ssid on your laptop or mobile phone, openwrt will take some time to figure out whether it can operate on some 5GHz channels or not. After reboot this might happen again so you need to wait at least 10 minutes before you panic about no 5G wifi present and worry that your ac2100 is broken. More information is in <a href="https://openwrt.org/docs/guide-quick-start/basic_wifi">link 5</a></li>
+<li>It is a known problem that many ac2100 come with bad NAND flash, my ac2100's NAND flash contains one bad eraseblock located at 768. It's not a big problem, but too many bad eraseblocks is a problem, especially if the eraseblock is located at the front of the NAND. The bootloader cannot has any bad eraseblock since it does not have functionality to navigate around bad block, the kernel also cannot overlap with bad eraseblock. But if the bad eraseblock is located after kernel, don't worry much about it, the linux kernel will handle this for you. Read more about bad blocks on NAND flash <a href="https://openwrt.org/docs/techref/flash#bad_blocks">here</a>, by the way, the documentation of openwrt is valuable, take some time to read them if you have the time, it's interesting.</li>
+</ol>
+<p>I think this blog post is already too long and my English is showing its weakness, next time.</p>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>links</h2>
+                        <ul>
+                            <li><a href="https://getpelican.com/">Pelican</a></li>
+                            <li><a href="https://www.python.org/">Python.org</a></li>
+                            <li><a href="https://palletsprojects.com/p/jinja/">Jinja2</a></li>
+                            <li><a href="#">You can modify those links in your config file</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+                            <li><a href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
+
+                            <li><a href="#">You can add links in your config file</a></li>
+                            <li><a href="#">Another social link</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="https://getpelican.com/">Pelican</a>, which takes great advantage of <a href="https://www.python.org/">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>

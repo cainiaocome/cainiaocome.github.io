@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>jlz's blog - SQL</title><link href="/" rel="alternate"></link><link href="/feeds/sql.atom.xml" rel="self"></link><id>/</id><updated>2021-10-08T10:14:12+08:00</updated><subtitle></subtitle><entry><title>SQL tips</title><link href="/sql-tips.html" rel="alternate"></link><published>2021-10-08T10:14:12+08:00</published><updated>2021-10-08T10:14:12+08:00</updated><author><name>jlz</name></author><id>tag:None,2021-10-08:/sql-tips.html</id><summary type="html">&lt;p&gt;Last update: 2021-10-08&lt;/p&gt;
+&lt;p&gt;Here are some tips that I hope somebody told me earlier:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;select from multiple tables implicitly means cross join, simple "join" also means cross join. The following two SQL queries both return cross join of Parts and Suppliers.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;select&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;Parts&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;Suppliers&lt;/span&gt;
+&lt;span class="n"&gt;select&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;Parts&lt;/span&gt; &lt;span class="n"&gt;join&lt;/span&gt; &lt;span class="n"&gt;Suppliers …&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</summary><content type="html">&lt;p&gt;Last update: 2021-10-08&lt;/p&gt;
+&lt;p&gt;Here are some tips that I hope somebody told me earlier:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;select from multiple tables implicitly means cross join, simple "join" also means cross join. The following two SQL queries both return cross join of Parts and Suppliers.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;select&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;Parts&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;Suppliers&lt;/span&gt;
+&lt;span class="n"&gt;select&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;Parts&lt;/span&gt; &lt;span class="n"&gt;join&lt;/span&gt; &lt;span class="n"&gt;Suppliers&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;ol&gt;
+&lt;li&gt;You can use the "with" clause to define temporary tables and use it in following SQL queries. This can simplify SQL queries and easier to understand.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;with&lt;/span&gt;
+    &lt;span class="n"&gt;Cheap_Parts&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;select&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;Parts&lt;/span&gt; &lt;span class="n"&gt;where&lt;/span&gt; &lt;span class="n"&gt;Parts&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;cost&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+    &lt;span class="n"&gt;Expensive_Parts&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;select&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;Parts&lt;/span&gt; &lt;span class="n"&gt;where&lt;/span&gt; &lt;span class="n"&gt;Parts&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;cost&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;=&lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="n"&gt;select&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;Cheap_Parts&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;ol&gt;
+&lt;li&gt;SQL does have an evaluation order. Some people might have heard about SQL optimizers and think that the order is determined by the optimizer. But that is the execution process. SQL does have a logical evaluation order, or else how can we be sure that the result would be determined? I am not talking about non-deterministic functions in SQL here. In general, the evaluation order is listed below. You can read more about it at &lt;a href="https://docs.microsoft.com/en-us/sql/t-sql/queries/select-transact-sql?redirectedfrom=MSDN&amp;amp;view=sql-server-ver15"&gt;here&lt;/a&gt;, &lt;a href="https://sqlbolt.com/lesson/select_queries_order_of_execution"&gt;here&lt;/a&gt;, and &lt;a href="https://jvns.ca/blog/2019/10/03/sql-queries-don-t-start-with-select/"&gt;here&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;FROM&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;ON&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;JOIN&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;WHERE&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;GROUP&lt;/span&gt; &lt;span class="n"&gt;BY&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;HAVING&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;SELECT&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;DISTINCT&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;ORDER&lt;/span&gt; &lt;span class="n"&gt;BY&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;TOP&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content><category term="SQL"></category></entry></feed>

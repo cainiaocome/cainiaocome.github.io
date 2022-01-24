@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>jlz's blog - Linux</title><link href="/" rel="alternate"></link><link href="/feeds/linux.atom.xml" rel="self"></link><id>/</id><updated>2022-01-23T07:57:15-04:30</updated><subtitle></subtitle><entry><title>How to specify output language for only one command in terminal</title><link href="/how-to-specify-output-language-for-only-one-command-in-terminal.html" rel="alternate"></link><published>2022-01-23T07:57:15-04:30</published><updated>2022-01-23T07:57:15-04:30</updated><author><name>jlz</name></author><id>tag:None,2022-01-23:/how-to-specify-output-language-for-only-one-command-in-terminal.html</id><summary type="html">&lt;p&gt;The language I set on my computers is Chinese since it's my native language.
+Some commands will read the environment variables to determine the proper output language, for example, date.
+But sometimes I want it not to output Chinese.
+Searched a bit and found &lt;a href="https://stackoverflow.com/questions/12896509/forcing-date-to-use-a-locale-other-than-the-machine-default/12896738"&gt;this&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The solution is simple:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nv"&gt;LC_ALL …&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</summary><content type="html">&lt;p&gt;The language I set on my computers is Chinese since it's my native language.
+Some commands will read the environment variables to determine the proper output language, for example, date.
+But sometimes I want it not to output Chinese.
+Searched a bit and found &lt;a href="https://stackoverflow.com/questions/12896509/forcing-date-to-use-a-locale-other-than-the-machine-default/12896738"&gt;this&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The solution is simple:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nv"&gt;LC_ALL&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;en_CA.UTF-8 date
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;If you want to find out all locales supported by your system:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;locale -a
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content><category term="Linux"></category></entry><entry><title>Block ads using DNS on OpenWRT</title><link href="/block-ads-using-dns-on-openwrt.html" rel="alternate"></link><published>2021-10-07T09:43:30+08:00</published><updated>2021-10-07T09:43:30+08:00</updated><author><name>jlz</name></author><id>tag:None,2021-10-07:/block-ads-using-dns-on-openwrt.html</id><summary type="html">&lt;p&gt;Recently I switched to OpenWRT as my gateway to the Internet. It has been a great pleasure. Stock firmware of routers just sucks. With OpenWRT, I can ssh into it, install packages, a nice web interface, the configuration makes sense, super smooth and quick, ad blocking, VPN, so on and …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Recently I switched to OpenWRT as my gateway to the Internet. It has been a great pleasure. Stock firmware of routers just sucks. With OpenWRT, I can ssh into it, install packages, a nice web interface, the configuration makes sense, super smooth and quick, ad blocking, VPN, so on and on.&lt;/p&gt;
+&lt;p&gt;I just added adblock to my router yesterday, here are the commands of the process:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="c1"&gt;# Install packages&lt;/span&gt;
+opkg update
+opkg install adblock
+
+&lt;span class="c1"&gt;# Provide web interface&lt;/span&gt;
+opkg install luci-app-adblock
+
+&lt;span class="c1"&gt;# Backup the blocklists&lt;/span&gt;
+uci &lt;span class="nb"&gt;set&lt;/span&gt; adblock.global.adb_backupdir&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;/etc/adblock&amp;quot;&lt;/span&gt;
+
+&lt;span class="c1"&gt;# Save and apply&lt;/span&gt;
+uci commit adblock
+/etc/init.d/adblock restart
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;You can read more about it &lt;a href="https://openwrt.org/docs/guide-user/services/ad-blocking"&gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The default configuration should cost about 6M RAM (with "DNS Report" turned on) and less than 1M disk space. In my situation this is fine, you should check your router's ram and disk before applying these commands.&lt;/p&gt;
+&lt;p&gt;You can turn on "DNS Report" on the Luci web. I like to analyze the performance and result so I turned it on.&lt;/p&gt;
+&lt;p&gt;However, using DNS to block ads is inefficient and prone to be bypassed. For example, the apps on your phone can use their DNS server, or use DNS-over-HTTPS, to bypass it. Not much can be done to DNS-over-HTTPS and doh is becoming more and more common. The ecosystem of mobile phones is pretty toxic. Personally, I prefer using browsers, even on my phone. Blocking ads on mobile browsers is another story.&lt;/p&gt;</content><category term="Linux"></category></entry><entry><title>How to install openwrt on redmi ac2100</title><link href="/how-to-install-openwrt-on-redmi-ac2100.html" rel="alternate"></link><published>2021-09-29T13:03:51+08:00</published><updated>2021-09-29T13:03:51+08:00</updated><author><name>jlz</name></author><id>tag:None,2021-09-29:/how-to-install-openwrt-on-redmi-ac2100.html</id><summary type="html">&lt;p&gt;Redmi ac2100 is a pretty good router for home use, except that its rom is a "highly customized" openwrt which restrictions are too strict and I remember that several years ago xiaomi added some nasty "functionalities" into their router devices which can inject javascript int web pages users browse and …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Redmi ac2100 is a pretty good router for home use, except that its rom is a "highly customized" openwrt which restrictions are too strict and I remember that several years ago xiaomi added some nasty "functionalities" into their router devices which can inject javascript int web pages users browse and profit.&lt;/p&gt;
+&lt;p&gt;Anyway, here are some useful links:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href="https://openwrt.org/toh/hwdata/xiaomi/xiaomi_redmi_router_ac2100"&gt;tech data about readmi ac2100&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://forum.openwrt.org/t/new-xiaomi-router-ac2100"&gt;openwrt forum topic about ac2100&lt;/a&gt; There are many interesting posts in this page, you can see the process of people cracking a router, fascinating, I hope I have more time to read and try these things out.&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://openwrt.org/toh/xiaomi/xiaomi_redmi_router_ac2100"&gt;official doc of installing openwrt on ac2100&lt;/a&gt; &lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;I used method A(web exploit) in previous link, it's pretty easy and interesting. Read &lt;a href="https://openwrt.org/toh/hwdata/xiaomi/xiaomi_redmi_router_ac2100"&gt;link 1&lt;/a&gt; and &lt;a href="https://openwrt.org/toh/xiaomi/xiaomi_redmi_router_ac2100"&gt;link 3&lt;/a&gt; carefully before you do anything. And optionally you can flash BREED as new bootloader, I did this step, it will allow you to recover more easily once you brick the device, you can also flash rom more easily with BREED.&lt;/p&gt;
+&lt;p&gt;I will check method B later if I got time, which is even more interesting.&lt;/p&gt;
+&lt;p&gt;some tips and informations you might want to know:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;MTD is a kind of storage device, it is different from both block device and character device. You can google more about it.&lt;/li&gt;
+&lt;li&gt;mtd is a tool in openwrt to write to MTD device, remember, MTD is different from block device, you need specific tools to write raw data to it. Read more about mtd utility &lt;a href="https://openwrt.org/docs/techref/mtd"&gt;here&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;openwrt will not turn on wireless interfaces by default if ethernet lan exists, so you need to turn them on. Read more about how to turn wifi on &lt;a href="https://openwrt.org/docs/guide-quick-start/basic_wifi"&gt;here&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;You better set the country code in the wireless settings, or else you might break the law, even may be end up in jail? I'm not sure.&lt;/li&gt;
+&lt;li&gt;If you configured 5GHz Wifi, don't panic if you don't see your ssid on your laptop or mobile phone, openwrt will take some time to figure out whether it can operate on some 5GHz channels or not. After reboot this might happen again so you need to wait at least 10 minutes before you panic about no 5G wifi present and worry that your ac2100 is broken. More information is in &lt;a href="https://openwrt.org/docs/guide-quick-start/basic_wifi"&gt;link 5&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;It is a known problem that many ac2100 come with bad NAND flash, my ac2100's NAND flash contains one bad eraseblock located at 768. It's not a big problem, but too many bad eraseblocks is a problem, especially if the eraseblock is located at the front of the NAND. The bootloader cannot has any bad eraseblock since it does not have functionality to navigate around bad block, the kernel also cannot overlap with bad eraseblock. But if the bad eraseblock is located after kernel, don't worry much about it, the linux kernel will handle this for you. Read more about bad blocks on NAND flash &lt;a href="https://openwrt.org/docs/techref/flash#bad_blocks"&gt;here&lt;/a&gt;, by the way, the documentation of openwrt is valuable, take some time to read them if you have the time, it's interesting.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;I think this blog post is already too long and my English is showing its weakness, next time.&lt;/p&gt;</content><category term="linux"></category></entry><entry><title>What to do when ssh hangs in terminal</title><link href="/what-to-do-when-ssh-hangs-in-terminal.html" rel="alternate"></link><published>2021-09-28T15:35:59+08:00</published><updated>2021-09-28T15:35:59+08:00</updated><author><name>jlz</name></author><id>tag:None,2021-09-28:/what-to-do-when-ssh-hangs-in-terminal.html</id><summary type="html">&lt;p&gt;I use ssh a lot. And I met this situation nearly every day: after waking laptop from sleep, I found that I didn't exit ssh connection before I close laptop lid, the ssh connection now hangs there.&lt;/p&gt;
+&lt;p&gt;I know this escape sequence(~.) before, but sometimes I found it not working …&lt;/p&gt;</summary><content type="html">&lt;p&gt;I use ssh a lot. And I met this situation nearly every day: after waking laptop from sleep, I found that I didn't exit ssh connection before I close laptop lid, the ssh connection now hangs there.&lt;/p&gt;
+&lt;p&gt;I know this escape sequence(~.) before, but sometimes I found it not working as expected. I happen to saw &lt;a href="https://apple.stackexchange.com/questions/35524/what-can-i-do-when-my-ssh-session-is-stuck"&gt;this&lt;/a&gt; today. From what the answer says, the escape character(~) has to be the first character of a line, so first hit "enter/return" key, then escape sequence(~.) should always work. I will test them later.&lt;/p&gt;</content><category term="linux"></category></entry><entry><title>How to install ansible on ubuntu 20.04 server</title><link href="/how-to-install-ansible-on-ubuntu-2004-server.html" rel="alternate"></link><published>2021-09-28T12:36:19+08:00</published><updated>2021-09-28T12:36:19+08:00</updated><author><name>jlz</name></author><id>tag:None,2021-09-28:/how-to-install-ansible-on-ubuntu-2004-server.html</id><summary type="html">&lt;p&gt;I am assuming your geo location is in China. Just copy-and-paste the following code into a bash script and execute it. It should work without any problem on a fresh installed ubuntu 20.04 server.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="ch"&gt;#!/usr/bin/env bash&lt;/span&gt;
+
+apt install python3-pip
+
+pip config &lt;span class="nb"&gt;set&lt;/span&gt; global.index-url https://mirrors.aliyun …&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</summary><content type="html">&lt;p&gt;I am assuming your geo location is in China. Just copy-and-paste the following code into a bash script and execute it. It should work without any problem on a fresh installed ubuntu 20.04 server.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="ch"&gt;#!/usr/bin/env bash&lt;/span&gt;
+
+apt install python3-pip
+
+pip config &lt;span class="nb"&gt;set&lt;/span&gt; global.index-url https://mirrors.aliyun.com/pypi/simple/
+
+pip install ansible
+
+&lt;span class="c1"&gt;# pip install paramiko # install paramiko only if your openssh version is too old&lt;/span&gt;
+
+
+&lt;span class="c1"&gt;## 清华源&lt;/span&gt;
+&lt;span class="c1"&gt;#pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple&lt;/span&gt;
+&lt;span class="c1"&gt;## 阿里源&lt;/span&gt;
+&lt;span class="c1"&gt;#pip config set global.index-url https://mirrors.aliyun.com/pypi/simple/&lt;/span&gt;
+&lt;span class="c1"&gt;## 腾讯源&lt;/span&gt;
+&lt;span class="c1"&gt;#pip config set global.index-url http://mirrors.cloud.tencent.com/pypi/simple&lt;/span&gt;
+&lt;span class="c1"&gt;## 豆瓣源&lt;/span&gt;
+&lt;span class="c1"&gt;#pip config set global.index-url http://pypi.douban.com/simple/&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;The steps are:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;install pip &lt;ul&gt;
+&lt;li&gt;It seems ubuntu 20.04 has dropped support for python2, good&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;set pip mirror. &lt;ul&gt;
+&lt;li&gt;There are several mirrors in China. Using these mirrors might break your security, use them at your own risk.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;install ansible and paramiko&lt;ul&gt;
+&lt;li&gt;It seems ansible is pretty easy to install.&lt;/li&gt;
+&lt;li&gt;ssh functionalities require paramiko if your openssh is too old&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;</content><category term="linux"></category></entry><entry><title>How to get rid of "remote host key identification changed" for good</title><link href="/how-to-get-rid-of-remote-host-key-identification-changed-for-good.html" rel="alternate"></link><published>2021-09-27T16:45:37+08:00</published><updated>2021-09-27T16:45:37+08:00</updated><author><name>jlz</name></author><id>tag:None,2021-09-27:/how-to-get-rid-of-remote-host-key-identification-changed-for-good.html</id><summary type="html">&lt;p&gt;First of all, this is violating security rules, but anyway, you can do it.&lt;/p&gt;
+&lt;p&gt;Modify ~/.ssh/config like this:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;Host raspberrypi
+        HostName localhost
+        UserKnownHostsFile=/dev/null
+        StrictHostKeyChecking=no
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;When experimenting with vms and if you are destroying and re-build vms frequently, you might see this warning messages a lot, so …&lt;/p&gt;</summary><content type="html">&lt;p&gt;First of all, this is violating security rules, but anyway, you can do it.&lt;/p&gt;
+&lt;p&gt;Modify ~/.ssh/config like this:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;Host raspberrypi
+        HostName localhost
+        UserKnownHostsFile=/dev/null
+        StrictHostKeyChecking=no
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;When experimenting with vms and if you are destroying and re-build vms frequently, you might see this warning messages a lot, so, it might be helpful someday.&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://linuxcommando.blogspot.com/2008/10/how-to-disable-ssh-host-key-checking.html"&gt;I found it here&lt;/a&gt;&lt;/p&gt;</content><category term="linux"></category></entry></feed>

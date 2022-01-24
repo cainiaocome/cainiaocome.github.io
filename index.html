@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <meta name="generator" content="Pelican" />
+        <title>jlz's blog</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+        <link href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="jlz's blog Atom Feed" />
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">jlz's blog</a></h1>
+                <nav><ul>
+                    <li><a href="/category/ansible.html">ansible</a></li>
+                    <li><a href="/category/cv.html">CV</a></li>
+                    <li><a href="/category/financial.html">financial</a></li>
+                    <li><a href="/category/linux.html">Linux</a></li>
+                    <li><a href="/category/pelican.html">pelican</a></li>
+                    <li><a href="/category/proxmox.html">proxmox</a></li>
+                    <li><a href="/category/sql.html">SQL</a></li>
+                    <li><a href="/category/ubuntu.html">ubuntu</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+
+            <aside id="featured" class="body">
+                <article>
+                    <h1 class="entry-title"><a href="/how-to-specify-output-language-for-only-one-command-in-terminal.html">How to specify output language for only one command in terminal</a></h1>
+<footer class="post-info">
+        <abbr class="published" title="2022-01-23T07:57:15-03:30">
+                Published: 日 23 一月 2022
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/jlz.html">jlz</a>
+        </address>
+<p>In <a href="/category/linux.html">Linux</a>.</p>
+
+</footer><!-- /.post-info --><p>The language I set on my computers is Chinese since it's my native language.
+Some commands will read the environment variables to determine the proper output language, for example, date.
+But sometimes I want it not to output Chinese.
+Searched a bit and found <a href="https://stackoverflow.com/questions/12896509/forcing-date-to-use-a-locale-other-than-the-machine-default/12896738">this</a>.</p>
+<p>The solution is simple:</p>
+<div class="highlight"><pre><span></span><code><span class="nv">LC_ALL</span><span class="o">=</span>en_CA.UTF-8 date
+</code></pre></div>
+
+<p>If you want to find out all locales supported by your system:</p>
+<div class="highlight"><pre><span></span><code>locale -a
+</code></pre></div>                </article>
+            </aside><!-- /#featured -->
+                <section id="content" class="body">
+                    <h1>Other articles</h1>
+                    <hr />
+                    <ol id="posts-list" class="hfeed">
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/ubuntu-cloud-image-dhcp-problem-in-proxmox.html" rel="bookmark"
+                           title="Permalink to Ubuntu cloud image dhcp problem in proxmox">Ubuntu cloud image dhcp problem in proxmox</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2022-01-23T07:57:15-03:30">
+                Published: 日 23 一月 2022
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/jlz.html">jlz</a>
+        </address>
+<p>In <a href="/category/proxmox.html">proxmox</a>.</p>
+
+</footer><!-- /.post-info -->                <p>When I create new qemu vm in proxmox, I prefer clone from a template becase this way is faster.
+The template comes from vm which I have booted once and made some modification.
+My pve is running on a n3350 mini pc, the performance is miserable when building a new …</p>
+                <a class="readmore" href="/ubuntu-cloud-image-dhcp-problem-in-proxmox.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/ubuntu-cloud-image-nfs-server-problem.html" rel="bookmark"
+                           title="Permalink to Ubuntu cloud image NFS server problem">Ubuntu cloud image NFS server problem</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2022-01-23T07:57:15-03:30">
+                Published: 日 23 一月 2022
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/jlz.html">jlz</a>
+        </address>
+<p>In <a href="/category/ubuntu.html">ubuntu</a>.</p>
+
+</footer><!-- /.post-info -->                <p>I am using Ubuntu cloud image, version 20.04, in proxmox.
+But it seems the kernel in this image lack some kernel modules which are needed by the nfs-kernel-server package.
+To solve it, you can compile the kernel by yourself, or insmod to check, or use <a href="https://github.com/pimlie/ubuntu-mainline-kernel.sh">this script</a> to download …</p>
+                <a class="readmore" href="/ubuntu-cloud-image-nfs-server-problem.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/bootstrap-ansible-on-windows-10.html" rel="bookmark"
+                           title="Permalink to bootstrap ansible on windows 10">bootstrap ansible on windows 10</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2021-10-13T06:12:34+00:00">
+                Published: 三 13 十月 2021
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/jlz.html">jlz</a>
+        </address>
+<p>In <a href="/category/ansible.html">ansible</a>.</p>
+
+</footer><!-- /.post-info -->                <ul>
+<li>
+<p>to be updated, I don't have time recently, I am reading libp2p source code and documentation lately.</p>
+</li>
+<li>
+<p>set network connection profile, more at <a href="https://docs.microsoft.com/en-us/powershell/module/netconnection/set-netconnectionprofile?view=windowsserver2019-ps">here</a></p>
+</li>
+<li>enable smb v2/v3 protocol, more at <a href="https://docs.microsoft.com/en-us/windows-server/storage/file-server/troubleshoot/detect-enable-and-disable-smbv1-v2-v3">here</a></li>
+<li>disable firewall, more at <a href="https://www.faqforge.com/windows/turn-off-firewall-using-powershell-command-prompt/">here</a>, or you can only allow 445 port income from certain hosts.
+    <code>powershell
+    Set-NetConnectionProfile …</code></li></ul>
+                <a class="readmore" href="/bootstrap-ansible-on-windows-10.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/sql-tips.html" rel="bookmark"
+                           title="Permalink to SQL tips">SQL tips</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2021-10-08T10:14:12+08:00">
+                Published: 五 08 十月 2021
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/jlz.html">jlz</a>
+        </address>
+<p>In <a href="/category/sql.html">SQL</a>.</p>
+
+</footer><!-- /.post-info -->                <p>Last update: 2021-10-08</p>
+<p>Here are some tips that I hope somebody told me earlier:</p>
+<ol>
+<li>select from multiple tables implicitly means cross join, simple "join" also means cross join. The following two SQL queries both return cross join of Parts and Suppliers.</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="n">select</span> <span class="o">*</span> <span class="kn">from</span> <span class="nn">Parts</span><span class="p">,</span> <span class="n">Suppliers</span>
+<span class="n">select</span> <span class="o">*</span> <span class="kn">from</span> <span class="nn">Parts</span> <span class="n">join</span> <span class="n">Suppliers …</span></code></pre></div>
+                <a class="readmore" href="/sql-tips.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/block-ads-using-dns-on-openwrt.html" rel="bookmark"
+                           title="Permalink to Block ads using DNS on OpenWRT">Block ads using DNS on OpenWRT</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2021-10-07T09:43:30+08:00">
+                Published: 四 07 十月 2021
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/jlz.html">jlz</a>
+        </address>
+<p>In <a href="/category/linux.html">Linux</a>.</p>
+
+</footer><!-- /.post-info -->                <p>Recently I switched to OpenWRT as my gateway to the Internet. It has been a great pleasure. Stock firmware of routers just sucks. With OpenWRT, I can ssh into it, install packages, a nice web interface, the configuration makes sense, super smooth and quick, ad blocking, VPN, so on and …</p>
+                <a class="readmore" href="/block-ads-using-dns-on-openwrt.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/how-to-install-openwrt-on-redmi-ac2100.html" rel="bookmark"
+                           title="Permalink to How to install openwrt on redmi ac2100">How to install openwrt on redmi ac2100</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2021-09-29T13:03:51+08:00">
+                Published: 三 29 九月 2021
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/jlz.html">jlz</a>
+        </address>
+<p>In <a href="/category/linux.html">linux</a>.</p>
+
+</footer><!-- /.post-info -->                <p>Redmi ac2100 is a pretty good router for home use, except that its rom is a "highly customized" openwrt which restrictions are too strict and I remember that several years ago xiaomi added some nasty "functionalities" into their router devices which can inject javascript int web pages users browse and …</p>
+                <a class="readmore" href="/how-to-install-openwrt-on-redmi-ac2100.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/what-to-do-when-ssh-hangs-in-terminal.html" rel="bookmark"
+                           title="Permalink to What to do when ssh hangs in terminal">What to do when ssh hangs in terminal</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2021-09-28T15:35:59+08:00">
+                Published: 二 28 九月 2021
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/jlz.html">jlz</a>
+        </address>
+<p>In <a href="/category/linux.html">linux</a>.</p>
+
+</footer><!-- /.post-info -->                <p>I use ssh a lot. And I met this situation nearly every day: after waking laptop from sleep, I found that I didn't exit ssh connection before I close laptop lid, the ssh connection now hangs there.</p>
+<p>I know this escape sequence(~.) before, but sometimes I found it not working …</p>
+                <a class="readmore" href="/what-to-do-when-ssh-hangs-in-terminal.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/how-to-install-ansible-on-ubuntu-2004-server.html" rel="bookmark"
+                           title="Permalink to How to install ansible on ubuntu 20.04 server">How to install ansible on ubuntu 20.04 server</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2021-09-28T12:36:19+08:00">
+                Published: 二 28 九月 2021
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/jlz.html">jlz</a>
+        </address>
+<p>In <a href="/category/linux.html">linux</a>.</p>
+
+</footer><!-- /.post-info -->                <p>I am assuming your geo location is in China. Just copy-and-paste the following code into a bash script and execute it. It should work without any problem on a fresh installed ubuntu 20.04 server.</p>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/usr/bin/env bash</span>
+
+apt install python3-pip
+
+pip config <span class="nb">set</span> global.index-url https://mirrors.aliyun …</code></pre></div>
+                <a class="readmore" href="/how-to-install-ansible-on-ubuntu-2004-server.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/how-to-get-rid-of-remote-host-key-identification-changed-for-good.html" rel="bookmark"
+                           title="Permalink to How to get rid of "remote host key identification changed" for good">How to get rid of "remote host key identification changed" for good</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2021-09-27T16:45:37+08:00">
+                Published: 一 27 九月 2021
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/jlz.html">jlz</a>
+        </address>
+<p>In <a href="/category/linux.html">linux</a>.</p>
+
+</footer><!-- /.post-info -->                <p>First of all, this is violating security rules, but anyway, you can do it.</p>
+<p>Modify ~/.ssh/config like this:</p>
+<div class="highlight"><pre><span></span><code>Host raspberrypi
+        HostName localhost
+        UserKnownHostsFile=/dev/null
+        StrictHostKeyChecking=no
+</code></pre></div>
+
+<p>When experimenting with vms and if you are destroying and re-build vms frequently, you might see this warning messages a lot, so …</p>
+                <a class="readmore" href="/how-to-get-rid-of-remote-host-key-identification-changed-for-good.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+                </ol><!-- /#posts-list -->
+<p class="paginator">
+    Page 1 / 2
+        <a href="/index2.html">&raquo;</a>
+        <a href="/index2.html">&#8649;</a>
+</p>
+                </section><!-- /#content -->
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>links</h2>
+                        <ul>
+                            <li><a href="https://getpelican.com/">Pelican</a></li>
+                            <li><a href="https://www.python.org/">Python.org</a></li>
+                            <li><a href="https://palletsprojects.com/p/jinja/">Jinja2</a></li>
+                            <li><a href="#">You can modify those links in your config file</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+                            <li><a href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
+
+                            <li><a href="#">You can add links in your config file</a></li>
+                            <li><a href="#">Another social link</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="https://getpelican.com/">Pelican</a>, which takes great advantage of <a href="https://www.python.org/">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>

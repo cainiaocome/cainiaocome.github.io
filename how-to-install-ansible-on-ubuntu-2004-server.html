@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <meta name="generator" content="Pelican" />
+        <title>How to install ansible on ubuntu 20.04 server</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+        <link href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="jlz's blog Atom Feed" />
+        <meta name="description" content="I am assuming your geo location is in China. Just copy-and-paste the following code into a bash script and execute it. It should work without any..." />
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">jlz's blog</a></h1>
+                <nav><ul>
+                    <li><a href="/category/ansible.html">ansible</a></li>
+                    <li><a href="/category/cv.html">CV</a></li>
+                    <li><a href="/category/financial.html">financial</a></li>
+                    <li class="active"><a href="/category/linux.html">Linux</a></li>
+                    <li><a href="/category/pelican.html">pelican</a></li>
+                    <li><a href="/category/proxmox.html">proxmox</a></li>
+                    <li><a href="/category/sql.html">SQL</a></li>
+                    <li><a href="/category/ubuntu.html">ubuntu</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="/how-to-install-ansible-on-ubuntu-2004-server.html" rel="bookmark"
+           title="Permalink to How to install ansible on ubuntu 20.04 server">How to install ansible on ubuntu 20.04 server</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2021-09-28T12:36:19+08:00">
+                Published: 二 28 九月 2021
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/jlz.html">jlz</a>
+        </address>
+<p>In <a href="/category/linux.html">linux</a>.</p>
+
+</footer><!-- /.post-info -->      <p>I am assuming your geo location is in China. Just copy-and-paste the following code into a bash script and execute it. It should work without any problem on a fresh installed ubuntu 20.04 server.</p>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/usr/bin/env bash</span>
+
+apt install python3-pip
+
+pip config <span class="nb">set</span> global.index-url https://mirrors.aliyun.com/pypi/simple/
+
+pip install ansible
+
+<span class="c1"># pip install paramiko # install paramiko only if your openssh version is too old</span>
+
+
+<span class="c1">## 清华源</span>
+<span class="c1">#pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple</span>
+<span class="c1">## 阿里源</span>
+<span class="c1">#pip config set global.index-url https://mirrors.aliyun.com/pypi/simple/</span>
+<span class="c1">## 腾讯源</span>
+<span class="c1">#pip config set global.index-url http://mirrors.cloud.tencent.com/pypi/simple</span>
+<span class="c1">## 豆瓣源</span>
+<span class="c1">#pip config set global.index-url http://pypi.douban.com/simple/</span>
+</code></pre></div>
+
+<p>The steps are:</p>
+<ol>
+<li>install pip <ul>
+<li>It seems ubuntu 20.04 has dropped support for python2, good</li>
+</ul>
+</li>
+<li>set pip mirror. <ul>
+<li>There are several mirrors in China. Using these mirrors might break your security, use them at your own risk.</li>
+</ul>
+</li>
+<li>install ansible and paramiko<ul>
+<li>It seems ansible is pretty easy to install.</li>
+<li>ssh functionalities require paramiko if your openssh is too old</li>
+</ul>
+</li>
+</ol>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>links</h2>
+                        <ul>
+                            <li><a href="https://getpelican.com/">Pelican</a></li>
+                            <li><a href="https://www.python.org/">Python.org</a></li>
+                            <li><a href="https://palletsprojects.com/p/jinja/">Jinja2</a></li>
+                            <li><a href="#">You can modify those links in your config file</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+                            <li><a href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
+
+                            <li><a href="#">You can add links in your config file</a></li>
+                            <li><a href="#">Another social link</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="https://getpelican.com/">Pelican</a>, which takes great advantage of <a href="https://www.python.org/">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>

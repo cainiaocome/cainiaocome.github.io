@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>jlz's blog - ubuntu</title><link href="/" rel="alternate"></link><link href="/feeds/ubuntu.atom.xml" rel="self"></link><id>/</id><updated>2022-01-23T07:57:15-04:30</updated><subtitle></subtitle><entry><title>Ubuntu cloud image NFS server problem</title><link href="/ubuntu-cloud-image-nfs-server-problem.html" rel="alternate"></link><published>2022-01-23T07:57:15-04:30</published><updated>2022-01-23T07:57:15-04:30</updated><author><name>jlz</name></author><id>tag:None,2022-01-23:/ubuntu-cloud-image-nfs-server-problem.html</id><summary type="html">&lt;p&gt;I am using Ubuntu cloud image, version 20.04, in proxmox.
+But it seems the kernel in this image lack some kernel modules which are needed by the nfs-kernel-server package.
+To solve it, you can compile the kernel by yourself, or insmod to check, or use &lt;a href="https://github.com/pimlie/ubuntu-mainline-kernel.sh"&gt;this script&lt;/a&gt; to download …&lt;/p&gt;</summary><content type="html">&lt;p&gt;I am using Ubuntu cloud image, version 20.04, in proxmox.
+But it seems the kernel in this image lack some kernel modules which are needed by the nfs-kernel-server package.
+To solve it, you can compile the kernel by yourself, or insmod to check, or use &lt;a href="https://github.com/pimlie/ubuntu-mainline-kernel.sh"&gt;this script&lt;/a&gt; to download a more recent and more modules-included kernel.&lt;/p&gt;
+&lt;p&gt;The Ubuntu cloud image contains about 10 kernel modules, and Ubuntu generic kernel image contains about 60 kernel modules.
+I suppose they might want the cloud server to be minimum and not enabled that many modules but I have enough resources so I don't care that much.&lt;/p&gt;
+&lt;p&gt;The error messages are like below:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A dependency job for nfs-server.service failed.&lt;/li&gt;
+&lt;li&gt;nfs-mountd.service: Job nfs-mountd.service/start failed with result 'dependency'&lt;/li&gt;
+&lt;li&gt;mount: /proc/fs/nfsd: unknown filesystem type 'nfsd'&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The kernel modules which are necessary for nfs server should be following:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;nfsd&lt;/li&gt;
+&lt;li&gt;nfs_acl&lt;/li&gt;
+&lt;li&gt;lockd&lt;/li&gt;
+&lt;li&gt;grace&lt;/li&gt;
+&lt;li&gt;sunrpc&lt;/li&gt;
+&lt;/ul&gt;</content><category term="ubuntu"></category></entry><entry><title>Ubuntu 20.04 Bluetooth headphone problems</title><link href="/ubuntu-2004-bluetooth-headphone-problems.html" rel="alternate"></link><published>2020-10-23T18:37:01+08:00</published><updated>2020-10-23T18:37:01+08:00</updated><author><name>jlz</name></author><id>tag:None,2020-10-23:/ubuntu-2004-bluetooth-headphone-problems.html</id><summary type="html">&lt;p&gt;From my experience, the wireless Bluetooth driver in Ubuntu is not written very well. I have met some severe problems with it. &lt;/p&gt;
+&lt;p&gt;For example, one time I noticed one very strange problem: youtube videos do not play in Chrome, but you can drag the progress bar to anywhere, the image …&lt;/p&gt;</summary><content type="html">&lt;p&gt;From my experience, the wireless Bluetooth driver in Ubuntu is not written very well. I have met some severe problems with it. &lt;/p&gt;
+&lt;p&gt;For example, one time I noticed one very strange problem: youtube videos do not play in Chrome, but you can drag the progress bar to anywhere, the image shows correctly but it just does not play! My first thought was that maybe the codec is corrupted, so I updated Chrome, but the problem remained. Then I think maybe it's a bug of Chrome, so I tested MPV to play local videos, weird, same problem. I suspect that my system is corrupted but I don't want to reinstall or upgrade. After searching on the web and thinking about the problem, I finally found out that it is the headphone, or I should say, the Bluetooth driver in Linux. The gnome-settings says it is connected to my headphone, but the connection has already become stale, no data can be transferred to the headphone. So every time application tries to send data via Bluetooth, it does not respond.&lt;/p&gt;
+&lt;p&gt;I have met another even more severe problem. One time when I was writing my personal statement, the fan of the computer spins really fast, which is weird because I am just writing a document, the load on the CPU should be low. But when I opened htop, I saw all 8 cores of CPU is running at 100 percent, and the criminal is the "bluetoothd", which should be Bluetooth service. Before I figured out what was happening, the whole system stopped responding, I had to use the REISUB trick to reboot the system.&lt;/p&gt;
+&lt;p&gt;I am here to provide a simple solution for all these headaches, which I hope it would help someone who reads this.&lt;/p&gt;
+&lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;&lt;span class="normal"&gt;1&lt;/span&gt;
+&lt;span class="normal"&gt;2&lt;/span&gt;
+&lt;span class="normal"&gt;3&lt;/span&gt;
+&lt;span class="normal"&gt;4&lt;/span&gt;
+&lt;span class="normal"&gt;5&lt;/span&gt;
+&lt;span class="normal"&gt;6&lt;/span&gt;
+&lt;span class="normal"&gt;7&lt;/span&gt;
+&lt;span class="normal"&gt;8&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="ch"&gt;#!/usr/bin/env bash&lt;/span&gt;
+
+sudo rmmod btusb
+sudo modprobe btusb
+
+sudo rfkill unblock all
+sudo systemctl restart bluetooth
+sudo bluetoothctl power on
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;p&gt;Anytime you met with Bluetooth problems, you can just "restart" the driver, which should fix the problem at your hands.&lt;/p&gt;
+&lt;p&gt;And I hope someday the driver will work perfectly and this trick would be useless.&lt;/p&gt;</content><category term="Ubuntu"></category></entry><entry><title>sshfs Transport endpoint is not connected</title><link href="/sshfs-transport-endpoint-is-not-connected.html" rel="alternate"></link><published>2020-04-25T12:26:54+08:00</published><updated>2020-04-25T12:26:54+08:00</updated><author><name>jlz</name></author><id>tag:None,2020-04-25:/sshfs-transport-endpoint-is-not-connected.html</id><summary type="html">&lt;p&gt;I have a notebook running Ubuntu 18.04 and a raspberry pi(4B with 4GB ram, which is a fantastic version of raspberry pi), both are on 7x24. Because capacity of the harddisk in the notebook is not large(only 64GB), I use sshfs to mount one hard disk(1TB …&lt;/p&gt;</summary><content type="html">&lt;p&gt;I have a notebook running Ubuntu 18.04 and a raspberry pi(4B with 4GB ram, which is a fantastic version of raspberry pi), both are on 7x24. Because capacity of the harddisk in the notebook is not large(only 64GB), I use sshfs to mount one hard disk(1TB) attached to the raspberry pi.&lt;/p&gt;
+&lt;p&gt;The sshfs command:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;sshfs&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;o&lt;/span&gt; &lt;span class="n"&gt;reconnect&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;ServerAliveInterval&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;15&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;ServerAliveCountMax&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;allow_other&lt;/span&gt; &lt;span class="n"&gt;rasp&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;root&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;files&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;root&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;rasp_files&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;/&lt;/span&gt;&lt;span class="k"&gt;var&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nb"&gt;log&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;sshfs&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;log&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&amp;amp;&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;But sshfs seems not very reliable, it crashes every several weeks, I do not know why and I do not want to know why. I just want it to recover. But every time it crashes, trying to relaunch sshfs gives error message:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;fuse&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;bad&lt;/span&gt; &lt;span class="n"&gt;mount&lt;/span&gt; &lt;span class="n"&gt;point&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;my mount point here&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;Transport&lt;/span&gt; &lt;span class="n"&gt;endpoint&lt;/span&gt; &lt;span class="k"&gt;is&lt;/span&gt; &lt;span class="n"&gt;not&lt;/span&gt; &lt;span class="n"&gt;connected&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Trying to umount the directory with command &lt;code&gt;fusermount -u "mount point here"&lt;/code&gt; directly gives following error:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;fusermount&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;failed&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;unmount&lt;/span&gt; &lt;span class="sr"&gt;/root/&lt;/span&gt;&lt;span class="n"&gt;rasp_files&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;Device&lt;/span&gt; &lt;span class="n"&gt;or&lt;/span&gt; &lt;span class="n"&gt;resource&lt;/span&gt; &lt;span class="n"&gt;busy&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Trying to umount using umount gives following error:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;umount: /root/rasp_files: target is busy.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;If you are like me and do not want to know why, this is the solution:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;umount&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;l&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;mount point here&amp;quot;&lt;/span&gt;
+&lt;span class="n"&gt;sshfs&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;o&lt;/span&gt; &lt;span class="n"&gt;reconnect&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;ServerAliveInterval&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;15&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;ServerAliveCountMax&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;allow_other&lt;/span&gt; &lt;span class="n"&gt;rasp&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;root&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;files&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;root&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;rasp_files&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;/&lt;/span&gt;&lt;span class="k"&gt;var&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nb"&gt;log&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;sshfs&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;log&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&amp;amp;&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;If you are curious, read man page of umount and research about linux file system, I am not very familiar with that topic. &lt;/p&gt;</content><category term="Ubuntu"></category></entry><entry><title>A minor Ubuntu 18.04 bluetooth problem</title><link href="/a-minor-ubuntu-1804-bluetooth-problem.html" rel="alternate"></link><published>2020-04-16T13:46:36+08:00</published><updated>2020-04-16T13:46:36+08:00</updated><author><name>jlz</name></author><id>tag:None,2020-04-16:/a-minor-ubuntu-1804-bluetooth-problem.html</id><summary type="html">&lt;p&gt;Several days ago, my 2.4G mouse is broken because the usb receiver can not work properly, so I bought another bluetooth/2.4G mouse on taobao, which costs me only 30 yuan(5 dollars).But there is a small problem with the bluetooth connection.Sometimes the connection just dies …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Several days ago, my 2.4G mouse is broken because the usb receiver can not work properly, so I bought another bluetooth/2.4G mouse on taobao, which costs me only 30 yuan(5 dollars).But there is a small problem with the bluetooth connection.Sometimes the connection just dies and I can not reconnect it. I googled a lot and tried several ways, including&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;service bluetooth restart
+systemctl restart bluetooth
+rfkill block bluetooth
+rfkill unblock bluetooth
+bluetoothctl
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;But none of the above worked.&lt;/p&gt;
+&lt;p&gt;Finally, I found &lt;a href="https://bugs.launchpad.net/ubuntu/+source/linux/+bug/1799064"&gt;this page&lt;/a&gt; and edited one line of my grub file from&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;GRUB_CMDLINE_LINUX_DEFAULT=&amp;quot;quiet splash&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;to&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;GRUB_CMDLINE_LINUX_DEFAULT=&amp;quot;quiet splash btusb.enable_autosuspend=0&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;then execute&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;update-grub &amp;amp;&amp;amp; reboot
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Untill Now the mouse works fine.I hope this is "the solution".If anything goes wrong, I might update this info.&lt;/p&gt;
+&lt;p&gt;Hope this information can help someone.&lt;/p&gt;</content><category term="Ubuntu"></category></entry></feed>

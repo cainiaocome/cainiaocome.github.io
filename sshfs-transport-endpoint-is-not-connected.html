@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <meta name="generator" content="Pelican" />
+        <title>sshfs Transport endpoint is not connected</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+        <link href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="jlz's blog Atom Feed" />
+        <meta name="description" content="I have a notebook running Ubuntu 18.04 and a raspberry pi(4B with 4GB ram, which is a fantastic version of raspberry pi), both are on 7x24...." />
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">jlz's blog</a></h1>
+                <nav><ul>
+                    <li><a href="/category/ansible.html">ansible</a></li>
+                    <li><a href="/category/cv.html">CV</a></li>
+                    <li><a href="/category/financial.html">financial</a></li>
+                    <li><a href="/category/linux.html">Linux</a></li>
+                    <li><a href="/category/pelican.html">pelican</a></li>
+                    <li><a href="/category/proxmox.html">proxmox</a></li>
+                    <li><a href="/category/sql.html">SQL</a></li>
+                    <li class="active"><a href="/category/ubuntu.html">ubuntu</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="/sshfs-transport-endpoint-is-not-connected.html" rel="bookmark"
+           title="Permalink to sshfs Transport endpoint is not connected">sshfs Transport endpoint is not connected</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2020-04-25T12:26:54+08:00">
+                Published: 六 25 四月 2020
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/jlz.html">jlz</a>
+        </address>
+<p>In <a href="/category/ubuntu.html">Ubuntu</a>.</p>
+
+</footer><!-- /.post-info -->      <p>I have a notebook running Ubuntu 18.04 and a raspberry pi(4B with 4GB ram, which is a fantastic version of raspberry pi), both are on 7x24. Because capacity of the harddisk in the notebook is not large(only 64GB), I use sshfs to mount one hard disk(1TB) attached to the raspberry pi.</p>
+<p>The sshfs command:</p>
+<div class="highlight"><pre><span></span><code><span class="n">sshfs</span> <span class="o">-</span><span class="n">o</span> <span class="n">reconnect</span><span class="p">,</span><span class="n">ServerAliveInterval</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span><span class="n">ServerAliveCountMax</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span><span class="n">allow_other</span> <span class="n">rasp</span><span class="p">:</span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">files</span> <span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">rasp_files</span><span class="o">/</span> <span class="o">&gt;/</span><span class="k">var</span><span class="o">/</span><span class="nb">log</span><span class="o">/</span><span class="n">sshfs</span><span class="o">.</span><span class="n">log</span> <span class="mi">2</span><span class="o">&gt;&amp;</span><span class="mi">1</span> <span class="o">&amp;</span>
+</code></pre></div>
+
+<p>But sshfs seems not very reliable, it crashes every several weeks, I do not know why and I do not want to know why. I just want it to recover. But every time it crashes, trying to relaunch sshfs gives error message:</p>
+<div class="highlight"><pre><span></span><code><span class="n">fuse</span><span class="o">:</span> <span class="n">bad</span> <span class="n">mount</span> <span class="n">point</span> <span class="s1">&#39;my mount point here&#39;</span><span class="o">:</span> <span class="n">Transport</span> <span class="n">endpoint</span> <span class="k">is</span> <span class="n">not</span> <span class="n">connected</span>
+</code></pre></div>
+
+<p>Trying to umount the directory with command <code>fusermount -u "mount point here"</code> directly gives following error:</p>
+<div class="highlight"><pre><span></span><code><span class="n">fusermount</span><span class="o">:</span> <span class="n">failed</span> <span class="n">to</span> <span class="n">unmount</span> <span class="sr">/root/</span><span class="n">rasp_files</span><span class="o">:</span> <span class="n">Device</span> <span class="n">or</span> <span class="n">resource</span> <span class="n">busy</span>
+</code></pre></div>
+
+<p>Trying to umount using umount gives following error:</p>
+<div class="highlight"><pre><span></span><code>umount: /root/rasp_files: target is busy.
+</code></pre></div>
+
+<p>If you are like me and do not want to know why, this is the solution:</p>
+<div class="highlight"><pre><span></span><code><span class="n">umount</span> <span class="o">-</span><span class="n">l</span> <span class="s2">&quot;mount point here&quot;</span>
+<span class="n">sshfs</span> <span class="o">-</span><span class="n">o</span> <span class="n">reconnect</span><span class="p">,</span><span class="n">ServerAliveInterval</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span><span class="n">ServerAliveCountMax</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span><span class="n">allow_other</span> <span class="n">rasp</span><span class="p">:</span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">files</span> <span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">rasp_files</span><span class="o">/</span> <span class="o">&gt;/</span><span class="k">var</span><span class="o">/</span><span class="nb">log</span><span class="o">/</span><span class="n">sshfs</span><span class="o">.</span><span class="n">log</span> <span class="mi">2</span><span class="o">&gt;&amp;</span><span class="mi">1</span> <span class="o">&amp;</span>
+</code></pre></div>
+
+<p>If you are curious, read man page of umount and research about linux file system, I am not very familiar with that topic. </p>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>links</h2>
+                        <ul>
+                            <li><a href="https://getpelican.com/">Pelican</a></li>
+                            <li><a href="https://www.python.org/">Python.org</a></li>
+                            <li><a href="https://palletsprojects.com/p/jinja/">Jinja2</a></li>
+                            <li><a href="#">You can modify those links in your config file</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+                            <li><a href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
+
+                            <li><a href="#">You can add links in your config file</a></li>
+                            <li><a href="#">Another social link</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="https://getpelican.com/">Pelican</a>, which takes great advantage of <a href="https://www.python.org/">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>

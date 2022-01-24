@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>jlz's blog - proxmox</title><link href="/" rel="alternate"></link><link href="/feeds/proxmox.atom.xml" rel="self"></link><id>/</id><updated>2022-01-23T07:57:15-04:30</updated><subtitle></subtitle><entry><title>Ubuntu cloud image dhcp problem in proxmox</title><link href="/ubuntu-cloud-image-dhcp-problem-in-proxmox.html" rel="alternate"></link><published>2022-01-23T07:57:15-04:30</published><updated>2022-01-23T07:57:15-04:30</updated><author><name>jlz</name></author><id>tag:None,2022-01-23:/ubuntu-cloud-image-dhcp-problem-in-proxmox.html</id><summary type="html">&lt;p&gt;When I create new qemu vm in proxmox, I prefer clone from a template becase this way is faster.
+The template comes from vm which I have booted once and made some modification.
+My pve is running on a n3350 mini pc, the performance is miserable when building a new …&lt;/p&gt;</summary><content type="html">&lt;p&gt;When I create new qemu vm in proxmox, I prefer clone from a template becase this way is faster.
+The template comes from vm which I have booted once and made some modification.
+My pve is running on a n3350 mini pc, the performance is miserable when building a new vm scratch from an disk image. 
+But it can handle tens of running vms without problem, as long as the vm is not doing some heavy computing.&lt;/p&gt;
+&lt;p&gt;The problem is, every time I clone a template, when booting the cloned vm, the first dhcp packet seems coming from cloud-init, and at that time, network stack has not start up so there is no mac address available for cloud-init to read.
+So it seems cloud-init will read from a file, /etc/machine-id, as a mac address to send first dhcp request.
+That poses a problem: the machine-id of every cloned vm is same.
+The solution is: empty the file /etc/machine-id, it seems cloud-init will regenerate one if it is empty.
+Different vms have different names, and we want to resolve vm's ip by its name.
+The problem is: in proxmox, the snippets defined variables seems have higher priority than settings in the cloud-init section in the settings of vm and name of the vm(consider hostname).
+The solution is: modify the snippets file instead of relying on the name of the vm to modify hostname.&lt;/p&gt;
+&lt;p&gt;It took me a long way to finally got these two pieces of solution.
+I have tried many other ways, but it seems this is the best for me now. &lt;/p&gt;</content><category term="proxmox"></category></entry><entry><title>How to backup and restore proxmox vms</title><link href="/how-to-backup-and-restore-proxmox-vms.html" rel="alternate"></link><published>2021-09-27T16:36:07+08:00</published><updated>2021-09-27T16:36:07+08:00</updated><author><name>jlz</name></author><id>tag:None,2021-09-27:/how-to-backup-and-restore-proxmox-vms.html</id><summary type="html">&lt;p&gt;I am running proxmox on my own homelab server, so I don't care that much about downtime, I can use stop mode to backup my vms without any problem. So, to backup and restore vm on another machine, just follow these steps:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;stop vm&lt;/li&gt;
+&lt;li&gt;vzdump $vmid [--dumpdir /mnt/backup]  # default …&lt;/li&gt;&lt;/ol&gt;</summary><content type="html">&lt;p&gt;I am running proxmox on my own homelab server, so I don't care that much about downtime, I can use stop mode to backup my vms without any problem. So, to backup and restore vm on another machine, just follow these steps:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;stop vm&lt;/li&gt;
+&lt;li&gt;vzdump $vmid [--dumpdir /mnt/backup]  # default dumpdir is /var/lib/vz/dump&lt;/li&gt;
+&lt;li&gt;qmrestore $path-to-dumped-vm $new-vmid&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;I transfered an OpenWrt vm to another proxmox node using these steps, works perfectly. I will write another blog about how to use OpenWrt and bridge network to set up private network in proxmox. And a big trap in Ubuntu cloud images.&lt;/p&gt;
+&lt;p&gt;For more about backup and restore proxmox vms, refer to &lt;a href="https://pve.proxmox.com/wiki/Backup_and_Restore"&gt;official docs&lt;/a&gt;&lt;/p&gt;</content><category term="proxmox"></category></entry></feed>
